@@ -1,0 +1,7 @@
+location_short="frc"
+client_name="test"
+environment="test"
+stack="ci"
+resource_group_name="rg-test"
+virtual_network_name="vnet-test"
+subnet_cidr="10.10.0.0/24"
