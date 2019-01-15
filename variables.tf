@@ -10,8 +10,8 @@ variable "client_name" {
 
 variable "custom_subnet_name" {
   description = "Optional custom subnet name"
-  type        = "string"
-  default     = ""
+  type        = "list"
+  default     = [""]
 }
 
 variable "environment" {
@@ -36,5 +36,20 @@ variable "virtual_network_name" {
 
 variable "subnet_cidr" {
   description = "The address prefix that is used by the subnet"
-  type        = "string"
+  type        = "list"
+}
+
+variable "route_table_ids" {
+  description = "The ID of the Route Table to associate with the subnet"
+  type        = "list"
+}
+
+variable "network_security_group_ids" {
+  description = "The ID of the Network Security Group to associate with the subnet"
+  type        = "list"
+}
+
+variable "service_endpoints" {
+  description = "The list of Service endpoints to associate with the subnet"
+  type        = "list"
 }
