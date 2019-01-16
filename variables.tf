@@ -42,14 +42,17 @@ variable "subnet_cidr" {
 variable "route_table_ids" {
   description = "The ID of the Route Table to associate with the subnet"
   type        = "list"
+  default     = [""]
 }
 
 variable "network_security_group_ids" {
   description = "The ID of the Network Security Group to associate with the subnet"
   type        = "list"
+  default     = [""]
 }
 
 variable "service_endpoints" {
   description = "The list of Service endpoints to associate with the subnet"
   type        = "list"
+  default     = []
 }
