@@ -1,15 +1,15 @@
 output "subnet_id" {
-  description = "Subnet generated id"
+  description = "Ids of the created subnets"
   value       = "${azurerm_subnet.subnet.*.id}"
 }
 
 output "subnet_cidr" {
-  description = "The CIDR for the subnet"
+  description = "CIDR list of the created subnets"
   value       = "${azurerm_subnet.subnet.*.address_prefix}"
 }
 
 output "subnet_name" {
-  description = "The name of the subnet"
+  description = "Names list of the created subnet"
   value       = "${azurerm_subnet.subnet.*.name}"
 }
 

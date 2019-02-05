@@ -1,4 +1,4 @@
-variable "location_short" {
+variable "location-short" {
   description = "Short string for Azure location."
   type        = "string"
 }
@@ -9,7 +9,7 @@ variable "client_name" {
 }
 
 variable "custom_subnet_name" {
-  description = "Optional custom subnet name"
+  description = "Optional custom subnet names"
   type        = "list"
   default     = [""]
 }
@@ -35,18 +35,18 @@ variable "virtual_network_name" {
 }
 
 variable "subnet_cidr" {
-  description = "The address prefix that is used by the subnet"
+  description = "The address prefix list to use for the subnet"
   type        = "list"
 }
 
 variable "route_table_ids" {
-  description = "The ID of the Route Table to associate with the subnet"
+  description = "The Route Table Ids list to associate with the subnet"
   type        = "list"
   default     = [""]
 }
 
 variable "network_security_group_ids" {
-  description = "The ID of the Network Security Group to associate with the subnet"
+  description = "The Network Security Group Ids list to associate with the subnet"
   type        = "list"
   default     = [""]
 }

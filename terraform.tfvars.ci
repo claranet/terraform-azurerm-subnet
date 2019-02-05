@@ -1,4 +1,4 @@
-location_short="frc"
+location-short="frc"
 client_name="test"
 environment="test"
 stack="ci"
