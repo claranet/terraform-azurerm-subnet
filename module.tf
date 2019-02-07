@@ -1,6 +1,6 @@
 resource "azurerm_subnet" "subnet" {
   count                = "${length(var.subnet_cidr)}"
-  name                 = "${length(var.subnet_cidr) == 1 ? coalesce(element(var.custom_subnet_name, count.index), "subnet-${var.environment}-${var.location-short}-${var.client_name}-${var.stack}") : coalesce(element(var.custom_subnet_name, count.index), "subnet-${var.environment}-${var.location-short}-${var.client_name}-${var.stack}-${count.index}")}"
+  name                 = "${length(var.subnet_cidr) == 1 ? coalesce(element(var.custom_subnet_name, count.index), "${var.stack}-${var.client_name}-${var.location-short}-${var.environment}-subnet") : coalesce(element(var.custom_subnet_name, count.index), "${var.stack}-${var.client_name}-${var.location-short}-${var.environment}-subnet${count.index}")}"
   resource_group_name  = "${var.resource_group_name}"
   virtual_network_name = "${var.virtual_network_name}"
   address_prefix       = "${element(var.subnet_cidr,count.index)}"
