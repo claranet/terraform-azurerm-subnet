@@ -39,7 +39,7 @@ module "vnet" {
     custom_vnet_name    = "${var.custom_vnet_name}"
 
     resource_group_name     = "${module.rg.resource_group_name}"
-    vnet_cidr               = ["${var.vnet_cidr}"]
+    vnet_cidr               = ["10.10.0.0/16"]
 }
 
 module "azure-network-subnet" {
@@ -53,9 +53,9 @@ module "azure-network-subnet" {
 
     resource_group_name     = "${module.rg.resource_group_name}"
     virtual_network_name    = "${module.vnet.virtual_network_name}"
-    subnet_cidr             = "${var.subnet_cidr}"
+    subnet_cidr             = "10.10.10.0/24"
 
-    route_table_id            = "${var.route_table_ids}"
+    route_table_ids           = "${var.route_table_ids}"
     network_security_group_id = "${var.network_security_group_ids}"
 
     service_endpoints         = "${var.service_endpoints}"
@@ -83,6 +83,11 @@ module "azure-network-subnet" {
 | Name | Description |
 |------|-------------|
 | subnet_cidr | CIDR list of the created subnets |
-| subnet_id | Ids of the created subnets |
+| subnet_ids | Ids of the created subnets |
 | subnet_ip_configurations | The collection of IP Configurations with IPs within this subnet |
-| subnet_name | Names list of the created subnet |
+| subnet_names | Names list of the created subnet |
+
+## Related documentation
+Terraform resource documentation: [https://www.terraform.io/docs/providers/azurerm/r/subnet.html]
+
+Microsoft Azure documentation: [https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet]
