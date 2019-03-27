@@ -60,6 +60,8 @@ module "azure-network-subnet" {
 
     service_endpoints         = "${var.service_endpoints}"
 }
+
+/ ! \ Before AzureRM Provider (2.0), You must define 0 or length(var.subnet_cidr) of `route_table_ids` and `network_security_group_id` if you want to use them.
 ```
 
 ## Inputs
