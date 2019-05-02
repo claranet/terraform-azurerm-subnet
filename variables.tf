@@ -11,7 +11,7 @@ variable "client_name" {
 variable "custom_subnet_names" {
   description = "Optional custom subnet names"
   type        = "list"
-  default     = []
+  default     = [""]
 }
 
 variable "environment" {

@@ -9,8 +9,6 @@ resource "azurerm_subnet" "subnet" {
   network_security_group_id = "${element(coalescelist(var.network_security_group_ids, list("")), count.index)}"
 
   service_endpoints = "${var.service_endpoints}"
-
-  tags = "${merge(local.default_tags, var.extra_tags)}"
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet_association" {
