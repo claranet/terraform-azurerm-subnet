@@ -12,53 +12,53 @@ This feature must be used with a virtual network, it can't be generated alone.
 
 ## Mandatory Usage
 
-```shell
+```hcl
 module "azure-region" {
-    source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/regions.git?ref=vX.X.X"
 
-    azure_region = "${var.azure_region}"
+  azure_region = "${var.azure_region}"
 }
 
 module "rg" {
-    source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=vX.X.X"
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=vX.X.X"
 
-    location     = "${module.azure-region.location}"
-    client_name  = "${var.client_name}"
-    environment  = "${var.environment}"
-    stack        = "${var.stack}"
+  location    = "${module.azure-region.location}"
+  client_name = "${var.client_name}"
+  environment = "${var.environment}"
+  stack       = "${var.stack}"
 }
 
 module "vnet" {
-    source              = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/vnet.git?ref=xxx"
-    
-    environment         = "${var.environment}"
-    location            = "${module.azure-region.location}"
-    location_short      = "${module.azure-region.location_short}"
-    client_name         = "${var.client_name}"
-    stack               = "${var.stack}"
-    custom_vnet_name    = "${var.custom_vnet_name}"
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/vnet.git?ref=xxx"
 
-    resource_group_name     = "${module.rg.resource_group_name}"
-    vnet_cidr               = ["10.10.0.0/16"]
+  environment      = "${var.environment}"
+  location         = "${module.azure-region.location}"
+  location-short   = "${module.azure-region.location-short}"
+  client_name      = "${var.client_name}"
+  stack            = "${var.stack}"
+  custom_vnet_name = "${var.custom_vnet_name}"
+
+  resource_group_name = "${module.rg.resource_group_name}"
+  vnet_cidr           = ["10.10.0.0/16"]
 }
 
 module "azure-network-subnet" {
-    source              = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/subnet.git?ref=vX.X.X"
+  source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/subnet.git?ref=vX.X.X"
 
-    environment         = "${var.environment}"
-    location-short      = "${module.azure-region.location-short}" 
-    client_name         = "${var.client_name}"
-    stack               = "${var.stack}"
-    custom_subnet_name  = "${var.custom_subnet_name}"
+  environment        = "${var.environment}"
+  location-short     = "${module.azure-region.location-short}"
+  client_name        = "${var.client_name}"
+  stack              = "${var.stack}"
+  custom_subnet_name = "${var.custom_subnet_name}"
 
-    resource_group_name     = "${module.rg.resource_group_name}"
-    virtual_network_name    = "${module.vnet.virtual_network_name}"
-    subnet_cidr             = "10.10.10.0/24"
+  resource_group_name  = "${module.rg.resource_group_name}"
+  virtual_network_name = "${module.vnet.virtual_network_name}"
+  subnet_cidr          = "10.10.10.0/24"
 
-    route_table_ids           = "${var.route_table_ids}"
-    network_security_group_id = "${var.network_security_group_ids}"
+  route_table_ids           = "${var.route_table_ids}"
+  network_security_group_id = "${var.network_security_group_ids}"
 
-    service_endpoints         = "${var.service_endpoints}"
+  service_endpoints = "${var.service_endpoints}"
 }
 
 / ! \ Before AzureRM Provider (2.0), You must define 0 or length(var.subnet_cidr) of `route_table_ids` and `network_security_group_id` if you want to use them.
@@ -71,7 +71,7 @@ module "azure-network-subnet" {
 | client_name | Client name/account used in naming | string | - | yes |
 | custom_subnet_name | Optional custom subnet names | list | `<list>` | no |
 | environment | Project environment | string | - | yes |
-| location_short | Short string for Azure location. | string | - | yes |
+| location-short | Short string for Azure location. | string | - | yes |
 | network_security_group_ids | The Network Security Group Ids list to associate with the subnet | list | `<list>` | no |
 | resource_group_name | Resource group name | string | - | yes |
 | route_table_ids | The Route Table Ids list to associate with the subnet | list | `<list>` | no |
