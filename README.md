@@ -53,7 +53,7 @@ module "azure-network-subnet" {
 
   resource_group_name  = "${module.rg.resource_group_name}"
   virtual_network_name = "${module.vnet.virtual_network_name}"
-  subnet_cidr          = "10.10.10.0/24"
+  subnet_cidr          = ["10.10.10.0/24"]
 
   route_table_ids           = "${var.route_table_ids}"
   network_security_group_id = "${var.network_security_group_ids}"
@@ -68,26 +68,27 @@ module "azure-network-subnet" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| client_name | Client name/account used in naming | string | - | yes |
-| custom_subnet_name | Optional custom subnet names | list | `<list>` | no |
-| environment | Project environment | string | - | yes |
-| location-short | Short string for Azure location. | string | - | yes |
-| network_security_group_ids | The Network Security Group Ids list to associate with the subnet | list | `<list>` | no |
-| resource_group_name | Resource group name | string | - | yes |
-| route_table_ids | The Route Table Ids list to associate with the subnet | list | `<list>` | no |
-| service_endpoints | The list of Service endpoints to associate with the subnet | list | `<list>` | no |
-| stack | Project stack name | string | - | yes |
-| subnet_cidr | The address prefix list to use for the subnet | list | - | yes |
-| virtual_network_name | Virtual network name | string | - | yes |
+| client\_name | Client name/account used in naming | string | n/a | yes |
+| custom\_subnet\_names | Optional custom subnet names | list | `<list>` | no |
+| environment | Project environment | string | n/a | yes |
+| extra\_tags | Extra tags to add | map | `<map>` | no |
+| location-short | Short string for Azure location. | string | n/a | yes |
+| network\_security\_group\_ids | The Network Security Group Ids list to associate with the subnet | list | `<list>` | no |
+| resource\_group\_name | Resource group name | string | n/a | yes |
+| route\_table\_ids | The Route Table Ids list to associate with the subnet | list | `<list>` | no |
+| service\_endpoints | The list of Service endpoints to associate with the subnet | list | `<list>` | no |
+| stack | Project stack name | string | n/a | yes |
+| subnet\_cidr\_list | The address prefix list to use for the subnet | list | n/a | yes |
+| virtual\_network\_name | Virtual network name | string | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| subnet_cidr | CIDR list of the created subnets |
-| subnet_ids | Ids of the created subnets |
-| subnet_ip_configurations | The collection of IP Configurations with IPs within this subnet |
-| subnet_names | Names list of the created subnet |
+| subnet\_cidr\_list | CIDR list of the created subnets |
+| subnet\_ids | Ids of the created subnets |
+| subnet\_ip\_configurations | The collection of IP Configurations with IPs within this subnet |
+| subnet\_names | Names list of the created subnet |
 
 ## Related documentation
 Terraform resource documentation: [https://www.terraform.io/docs/providers/azurerm/r/subnet.html]

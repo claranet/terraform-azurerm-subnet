@@ -56,3 +56,9 @@ variable "service_endpoints" {
   type        = "list"
   default     = []
 }
+
+variable "extra_tags" {
+  description = "Extra tags to add"
+  type        = "map"
+  default     = {}
+}
