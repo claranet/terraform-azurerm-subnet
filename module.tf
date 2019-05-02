@@ -1,7 +1,3 @@
-locals {
-  subnet_name = "${var.stack}-${var.client_name}-${var.location-short}-${var.environment}-subnet"
-}
-
 resource "azurerm_subnet" "subnet" {
   count                = "${length(var.subnet_cidr)}"
   name                 = "${length(var.subnet_cidr) == 1 ? coalesce(element(var.custom_subnet_name, count.index), "${local.subnet_name}") : coalesce(element(var.custom_subnet_name, count.index), "${local.subnet_name}${count.index}")}"
@@ -13,6 +9,8 @@ resource "azurerm_subnet" "subnet" {
   network_security_group_id = "${element(coalescelist(var.network_security_group_ids, list("")), count.index)}"
 
   service_endpoints = "${var.service_endpoints}"
+
+  tags = "${merge(local.default_tags, var.extra_tags)}"
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet_association" {

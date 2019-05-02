@@ -8,10 +8,10 @@ variable "client_name" {
   type        = "string"
 }
 
-variable "custom_subnet_name" {
+variable "custom_subnet_names" {
   description = "Optional custom subnet names"
   type        = "list"
-  default     = [""]
+  default     = []
 }
 
 variable "environment" {
@@ -34,7 +34,7 @@ variable "virtual_network_name" {
   type        = "string"
 }
 
-variable "subnet_cidr" {
+variable "subnet_cidr_list" {
   description = "The address prefix list to use for the subnet"
   type        = "list"
 }

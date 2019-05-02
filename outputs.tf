@@ -3,7 +3,7 @@ output "subnet_ids" {
   value       = "${azurerm_subnet.subnet.*.id}"
 }
 
-output "subnet_cidr" {
+output "subnet_cidr_list" {
   description = "CIDR list of the created subnets"
   value       = "${azurerm_subnet.subnet.*.address_prefix}"
 }
