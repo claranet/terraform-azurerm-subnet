@@ -1,4 +1,4 @@
-variable "location-short" {
+variable "location_short" {
   description = "Short string for Azure location."
   type        = "string"
 }
@@ -55,10 +55,4 @@ variable "service_endpoints" {
   description = "The list of Service endpoints to associate with the subnet"
   type        = "list"
   default     = []
-}
-
-variable "extra_tags" {
-  description = "Extra tags to add"
-  type        = "map"
-  default     = {}
 }
