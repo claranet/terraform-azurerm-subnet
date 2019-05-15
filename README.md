@@ -45,11 +45,11 @@ module "azure-network-vnet" {
 module "azure-network-subnet" {
   source = "git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/subnet.git?ref=vX.X.X"
 
-  environment        = "${var.environment}"
-  location_short     = "${module.azure-region.location_short}"
-  client_name        = "${var.client_name}"
-  stack              = "${var.stack}"
-  custom_subnet_name = "${var.custom_subnet_name}"
+  environment		= "${var.environment}"
+  location_short	= "${module.azure-region.location_short}"
+  client_name		= "${var.client_name}"
+  stack			= "${var.stack}"
+  custom_subnet_names	= "${var.custom_subnet_names}"
 
   resource_group_name  = "${module.rg.resource_group_name}"
   virtual_network_name = "${module.vnet.virtual_network_name}"
