@@ -9,7 +9,6 @@ This feature must be used within a [Virtual Network](https://docs.microsoft.com/
 * module.rg.resource_group_name: git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/rg.git?ref=xxx
 * module.vnet.virtual_network_name: git::ssh://git@git.fr.clara.net/claranet/cloudnative/projects/cloud/azure/terraform/modules/vnet.git?ref=xxx
 
-
 ## Usage
 
 ```hcl
@@ -55,9 +54,12 @@ module "azure-network-subnet" {
   virtual_network_name = "${module.vnet.virtual_network_name}"
   subnet_cidr_list     = ["10.10.10.0/24"]
 
-  # Those lists must be the same size as `subnet_cidr_list` or not set
-  route_table_ids           = "${var.route_table_ids}"
-  network_security_group_id = "${var.network_security_group_ids}"
+  # Those lists must be the same size as the associated count value and `subnet_cidr_list` size and or not set (default count value is "0")
+  # This limitation should be removed with Terraform 0.12
+  route_table_count            = "1"
+  route_table_ids              = "${var.route_table_ids}"
+  network_security_group_count = "1"
+  network_security_group_ids   = "${var.network_security_group_ids}"
 
   service_endpoints = "${var.service_endpoints}"
 }
@@ -70,9 +72,11 @@ module "azure-network-subnet" {
 | client\_name | Client name/account used in naming | string | n/a | yes |
 | custom\_subnet\_names | Optional custom subnet names | list | `<list>` | no |
 | environment | Project environment | string | n/a | yes |
-| location-short | Short string for Azure location. | string | n/a | yes |
+| location\_short | Short string for Azure location. | string | n/a | yes |
+| network\_security\_group\_count | Count of Network Security Group to associate with the subnet | string | `"0"` | no |
 | network\_security\_group\_ids | The Network Security Group Ids list to associate with the subnet | list | `<list>` | no |
 | resource\_group\_name | Resource group name | string | n/a | yes |
+| route\_table\_count | Count of Route Table to associate with the subnet | string | `"0"` | no |
 | route\_table\_ids | The Route Table Ids list to associate with the subnet | list | `<list>` | no |
 | service\_endpoints | The list of Service endpoints to associate with the subnet | list | `<list>` | no |
 | stack | Project stack name | string | n/a | yes |
