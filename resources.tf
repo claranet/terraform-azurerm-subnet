@@ -13,14 +13,14 @@ resource "azurerm_subnet" "subnet" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet_association" {
-  count = "${length(var.network_security_group_ids)}"
+  count = "${var.network_security_group_count}"
 
   subnet_id                 = "${element(azurerm_subnet.subnet.*.id, count.index)}"
   network_security_group_id = "${element(var.network_security_group_ids, count.index)}"
 }
 
 resource "azurerm_subnet_route_table_association" "route_table_association" {
-  count = "${length(var.route_table_ids)}"
+  count = "${var.route_table_count}"
 
   subnet_id      = "${element(azurerm_subnet.subnet.*.id, count.index)}"
   route_table_id = "${element(var.route_table_ids, count.index)}"
