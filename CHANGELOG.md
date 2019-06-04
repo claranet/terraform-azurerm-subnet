@@ -1,4 +1,4 @@
-# Unreleased
+# v1.1.0 - 2019-06-04
 
 Added
   * AZ-95 Explicit count variable for input routes and security groups
