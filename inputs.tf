@@ -8,6 +8,12 @@ variable "client_name" {
   type        = "string"
 }
 
+variable "name_prefix" {
+  description = "Optional prefix for subnet names"
+  type        = "string"
+  default     = ""
+}
+
 variable "custom_subnet_names" {
   description = "Optional custom subnet names"
   type        = "list"

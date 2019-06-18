@@ -73,6 +73,7 @@ module "azure-network-subnet" {
 | custom\_subnet\_names | Optional custom subnet names | list | `<list>` | no |
 | environment | Project environment | string | n/a | yes |
 | location\_short | Short string for Azure location. | string | n/a | yes |
+| name\_prefix | Optional prefix for subnet names | string | `""` | no |
 | network\_security\_group\_count | Count of Network Security Group to associate with the subnet | string | `"0"` | no |
 | network\_security\_group\_ids | The Network Security Group Ids list to associate with the subnet | list | `<list>` | no |
 | resource\_group\_name | Resource group name | string | n/a | yes |
