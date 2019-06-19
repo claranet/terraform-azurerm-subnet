@@ -1,4 +1,4 @@
-# Unreleased
+# v1.1.1 - 2019-06-19
 
 Added
   * AZ-105 Allow prefix for subnet naming
