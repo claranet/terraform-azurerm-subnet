@@ -3,6 +3,9 @@
 Breaking
   * AZ-94: Terraform 0.12 / HCL2 format
 
+Added
+  * AZ-118: Add LICENSE, NOTICE & Github badges
+
 # v1.1.1 - 2019-06-19
 
 Added
