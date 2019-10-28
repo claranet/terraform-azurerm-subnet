@@ -1,3 +1,9 @@
+# v2.0.1 - 2019-10-28
+
+Added
+  * AZ-136: Fix deprecation warning
+
+
 # v2.0.0 - 2019-09-27
 
 Breaking
