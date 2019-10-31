@@ -1,7 +1,7 @@
-# v2.0.1 - 2019-10-28
+# v2.0.1 - 2019-10-31
 
-Added
-  * AZ-136: Fix deprecation warning
+Updated
+  * AZ-136: Fix deprecation warning (related to Azure provider 2.0)
 
 
 # v2.0.0 - 2019-09-27
