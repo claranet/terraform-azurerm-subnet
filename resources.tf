@@ -12,7 +12,7 @@ resource "azurerm_subnet" "subnet" {
   // Avoid collision with subnet_association and route_table_association
   // Can be removed when azurerm v2.0 will be released
   lifecycle {
-    ignore_changes = ["route_table_id", "network_security_group_id"]
+    ignore_changes = [route_table_id, network_security_group_id]
   }
 
   service_endpoints = var.service_endpoints

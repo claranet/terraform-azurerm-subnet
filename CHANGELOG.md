@@ -1,8 +1,12 @@
+# Unreleased
+
+Changed
+  * AZ-136: Fix syntax warning
+
 # v2.0.1 - 2019-10-31
 
-Updated
+Changed
   * AZ-136: Fix deprecation warning (related to Azure provider 2.0)
-
 
 # v2.0.0 - 2019-09-27
 
@@ -29,5 +33,4 @@ Added
 # v1.0.0 - 2019-05-14
 
 Added
-
   * AZ-22 First Release
