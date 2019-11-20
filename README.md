@@ -65,7 +65,7 @@ module "azure-network-subnet" {
   custom_subnet_names = var.custom_subnet_names
 
   resource_group_name  = module.rg.resource_group_name
-  virtual_network_name = module.vnet.virtual_network_name
+  virtual_network_name = module.azure-network-vnet.virtual_network_name
   subnet_cidr_list     = ["10.10.10.0/24"]
 
   # Those lists must be the same size as the associated count value and `subnet_cidr_list` size and or not set (default count value is "0")
@@ -85,18 +85,18 @@ module "azure-network-subnet" {
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | client\_name | Client name/account used in naming | string | n/a | yes |
-| custom\_subnet\_names | Optional custom subnet names | list | `<list>` | no |
+| custom\_subnet\_names | Optional custom subnet names | list(string) | `[ "" ]` | no |
 | environment | Project environment | string | n/a | yes |
 | location\_short | Short string for Azure location. | string | n/a | yes |
 | name\_prefix | Optional prefix for subnet names | string | `""` | no |
-| network\_security\_group\_count | Count of Network Security Group to associate with the subnet | string | `"0"` | no |
-| network\_security\_group\_ids | The Network Security Group Ids list to associate with the subnet | list | `<list>` | no |
+| network\_security\_group\_count | Count of Network Security Group to associate with the subnet | number | `"1"` | no |
+| network\_security\_group\_ids | The Network Security Group Ids list to associate with the subnet | list(string) | `[]` | no |
 | resource\_group\_name | Resource group name | string | n/a | yes |
-| route\_table\_count | Count of Route Table to associate with the subnet | string | `"0"` | no |
-| route\_table\_ids | The Route Table Ids list to associate with the subnet | list | `<list>` | no |
-| service\_endpoints | The list of Service endpoints to associate with the subnet | list | `<list>` | no |
+| route\_table\_count | Count of Route Table to associate with the subnet | number | `"0"` | no |
+| route\_table\_ids | The Route Table Ids list to associate with the subnet | list(string) | `[]` | no |
+| service\_endpoints | The list of Service endpoints to associate with the subnet | list(string) | `[]` | no |
 | stack | Project stack name | string | n/a | yes |
-| subnet\_cidr\_list | The address prefix list to use for the subnet | list | n/a | yes |
+| subnet\_cidr\_list | The address prefix list to use for the subnet | list(string) | n/a | yes |
 | virtual\_network\_name | Virtual network name | string | n/a | yes |
 
 ## Outputs

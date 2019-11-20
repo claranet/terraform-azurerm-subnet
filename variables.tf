@@ -45,11 +45,10 @@ variable "subnet_cidr_list" {
   type        = list(string)
 }
 
-# TODO Should be dropped in Terraform 0.12
 variable "route_table_count" {
   description = "Count of Route Table to associate with the subnet"
-  type        = string
-  default     = "0"
+  type        = number
+  default     = 0
 }
 
 variable "route_table_ids" {
@@ -58,11 +57,10 @@ variable "route_table_ids" {
   default     = []
 }
 
-# TODO Should be dropped in Terraform 0.12
 variable "network_security_group_count" {
   description = "Count of Network Security Group to associate with the subnet"
-  type        = string
-  default     = "0"
+  type        = number
+  default     = 0
 }
 
 variable "network_security_group_ids" {
