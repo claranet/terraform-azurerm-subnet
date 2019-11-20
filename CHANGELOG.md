@@ -1,4 +1,4 @@
-# Unreleased
+# v2.0.2 - 2019-11-20
 
 Changed
   * AZ-136: Fix syntax warning
