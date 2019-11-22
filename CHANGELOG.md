@@ -1,4 +1,4 @@
-# v2.0.3 - Unreleased
+# v2.0.3 - 2019-11-22
 
 Added
   * AZ-136: Add maps outputs
