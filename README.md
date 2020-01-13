@@ -39,6 +39,15 @@ module "rg" {
   stack       = var.stack
 }
 
+locals {
+  vnet_cidr = "10.10.0.0/16"
+  subnets = {
+    "${var.stack}-${var.client_name}-${module.azure-region.location_short}-${var.environment}-subnet1"      = "10.10.0.0/24"
+    "${var.stack}-${var.client_name}-${module.azure-region.location_short}-${var.environment}-subnetTWO"    = "10.10.1.0/24"
+    "${var.stack}-${var.client_name}-${module.azure-region.location_short}-${var.environment}-subnet_trois" = "10.10.2.0/24"
+  }
+}
+
 module "azure-network-vnet" {
   source  = "claranet/vnet/azurerm"
   version = "x.x.x"
@@ -51,7 +60,7 @@ module "azure-network-vnet" {
   custom_vnet_name = var.custom_vnet_name
 
   resource_group_name = module.rg.resource_group_name
-  vnet_cidr           = ["10.10.0.0/16"]
+  vnet_cidr           = [local.vnet_cidr]
 }
 
 module "azure-network-subnet" {
@@ -62,18 +71,21 @@ module "azure-network-subnet" {
   location_short      = module.azure-region.location_short
   client_name         = var.client_name
   stack               = var.stack
-  custom_subnet_names = var.custom_subnet_names
+  custom_subnet_names = keys(local.subnets)
 
   resource_group_name  = module.rg.resource_group_name
   virtual_network_name = module.azure-network-vnet.virtual_network_name
-  subnet_cidr_list     = ["10.10.10.0/24"]
+  subnet_cidr_list     = values(local.subnets)
 
-  # Those lists must be the same size as the associated count value and `subnet_cidr_list` size and or not set (default count value is "0")
-  # This limitation should be removed with Terraform 0.12
-  route_table_count            = "1"
-  route_table_ids              = var.route_table_ids
-  network_security_group_count = "1"
-  network_security_group_ids   = var.network_security_group_ids
+  route_table_ids = {
+    keys(local.subnets)[0] = module.azure-network-route-table.route_table_id
+    keys(local.subnets)[2] = module.azure-network-route-table.route_table_id
+  }
+
+  network_security_group_ids = {
+    keys(local.subnets)[1] = module.network-security-group-A.network_security_group_id
+    keys(local.subnets)[2] = module.network-security-group-B.network_security_group_id
+  }
 
   service_endpoints = var.service_endpoints
 }
@@ -89,14 +101,12 @@ module "azure-network-subnet" {
 | environment | Project environment | string | n/a | yes |
 | location\_short | Short string for Azure location. | string | n/a | yes |
 | name\_prefix | Optional prefix for subnet names | string | `""` | no |
-| network\_security\_group\_count | Count of Network Security Group to associate with the subnet | number | `"1"` | no |
-| network\_security\_group\_ids | The Network Security Group Ids list to associate with the subnet | list(string) | `[]` | no |
+| network\_security\_group\_ids | The Network Security Group Ids map to associate with the subnets | map(string) | `"null"` | no |
 | resource\_group\_name | Resource group name | string | n/a | yes |
-| route\_table\_count | Count of Route Table to associate with the subnet | number | `"0"` | no |
-| route\_table\_ids | The Route Table Ids list to associate with the subnet | list(string) | `[]` | no |
+| route\_table\_ids | The Route Table Ids map to associate with the subnets | map(string) | `"null"` | no |
 | service\_endpoints | The list of Service endpoints to associate with the subnet | list(string) | `[]` | no |
 | stack | Project stack name | string | n/a | yes |
-| subnet\_cidr\_list | The address prefix list to use for the subnet | list(string) | n/a | yes |
+| subnet\_cidr\_list | The address prefix list to use for the subnets | list(string) | n/a | yes |
 | virtual\_network\_name | Virtual network name | string | n/a | yes |
 
 ## Outputs
