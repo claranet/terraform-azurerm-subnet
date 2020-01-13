@@ -5,7 +5,7 @@ output "subnet_ids" {
 
 output "subnets_ids_map" {
   description = "Map with names and IDs of the created subnets"
-  value       = zipmap(azurerm_subnet.subnet.*.name, azurerm_subnet.subnet.*.id)
+  value       = local.subnets_outputs
 }
 
 output "subnet_cidr_list" {
