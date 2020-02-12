@@ -41,32 +41,20 @@ variable "virtual_network_name" {
 }
 
 variable "subnet_cidr_list" {
-  description = "The address prefix list to use for the subnet"
+  description = "The address prefix list to use for the subnets"
   type        = list(string)
-}
-
-variable "route_table_count" {
-  description = "Count of Route Table to associate with the subnet"
-  type        = number
-  default     = 0
 }
 
 variable "route_table_ids" {
-  description = "The Route Table Ids list to associate with the subnet"
-  type        = list(string)
-  default     = []
-}
-
-variable "network_security_group_count" {
-  description = "Count of Network Security Group to associate with the subnet"
-  type        = number
-  default     = 0
+  description = "The Route Table Ids map to associate with the subnets"
+  type        = map(string)
+  default     = null
 }
 
 variable "network_security_group_ids" {
-  description = "The Network Security Group Ids list to associate with the subnet"
-  type        = list(string)
-  default     = []
+  description = "The Network Security Group Ids map to associate with the subnets"
+  type        = map(string)
+  default     = null
 }
 
 variable "service_endpoints" {
@@ -74,4 +62,3 @@ variable "service_endpoints" {
   type        = list(string)
   default     = []
 }
-

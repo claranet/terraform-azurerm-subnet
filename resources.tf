@@ -19,16 +19,15 @@ resource "azurerm_subnet" "subnet" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet_association" {
-  count = var.network_security_group_count
+  for_each = var.network_security_group_ids
 
-  subnet_id                 = element(azurerm_subnet.subnet.*.id, count.index)
-  network_security_group_id = element(var.network_security_group_ids, count.index)
+  subnet_id                 = lookup(local.subnets_outputs, each.key)
+  network_security_group_id = each.value
 }
 
 resource "azurerm_subnet_route_table_association" "route_table_association" {
-  count = var.route_table_count
+  for_each = var.route_table_ids
 
-  subnet_id      = element(azurerm_subnet.subnet.*.id, count.index)
-  route_table_id = element(var.route_table_ids, count.index)
+  subnet_id      = lookup(local.subnets_outputs, each.key)
+  route_table_id = each.value
 }
-

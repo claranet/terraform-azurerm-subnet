@@ -1,3 +1,8 @@
+# v2.1.0 - Unreleased
+
+Breaking
+  * AZ-171: Revamp subnet module inputs (more flexible with NSG and RT associations)
+
 # v2.0.3 - 2019-11-22
 
 Added
