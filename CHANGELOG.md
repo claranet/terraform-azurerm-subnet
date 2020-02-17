@@ -1,3 +1,8 @@
+# v2.1.1 - 2020-02-17
+
+Changed
+  * AZ-185: Update REAME
+
 # v2.1.0 - 2020-02-12
 
 Breaking
