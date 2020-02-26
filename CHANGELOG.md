@@ -1,7 +1,7 @@
 # v3.0.0 - Unreleased
 
 Breaking
-  * AZ-198: AzureRM 2.0 compatibility
+  * AZ-198: AzureRM 2.0 compatibility + remove ip_configurations output
 
 # v2.2.0 - 2020-03-27
 
