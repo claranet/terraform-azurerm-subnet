@@ -9,12 +9,6 @@ resource "azurerm_subnet" "subnet" {
   virtual_network_name = var.virtual_network_name
   address_prefix       = element(var.subnet_cidr_list, count.index)
 
-  // Avoid collision with subnet_association and route_table_association
-  // Can be removed when azurerm v2.0 will be released
-  lifecycle {
-    ignore_changes = [route_table_id, network_security_group_id]
-  }
-
   service_endpoints = var.service_endpoints
 
   enforce_private_link_endpoint_network_policies = var.enforce_private_link
