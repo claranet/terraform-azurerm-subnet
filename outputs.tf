@@ -22,3 +22,8 @@ output "subnet_names" {
   description = "Names list of the created subnet"
   value       = azurerm_subnet.subnet[*].name
 }
+
+output "subnet_ips" {
+  description = "The collection of IPs within this subnet"
+  value       = var.subnet_cidr_list[*]
+}
