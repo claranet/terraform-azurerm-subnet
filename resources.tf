@@ -19,7 +19,7 @@ resource "azurerm_subnet" "subnet" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet_association" {
-  for_each = var.network_security_group_ids != null ? var.network_security_group_ids : {}
+  for_each = coalesce(var.network_security_group_ids, {})
 
   subnet_id                 = lookup(local.subnets_outputs, each.key)
   network_security_group_id = each.value
