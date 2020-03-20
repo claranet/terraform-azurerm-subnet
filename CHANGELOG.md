@@ -3,7 +3,6 @@
 Changed
   * AZ-203: Fix `route_table_ids` and `network_security_group_ids` variables null values
 
-
 # v2.1.1 - 2020-02-17
 
 Changed
