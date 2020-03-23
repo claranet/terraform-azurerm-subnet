@@ -4,16 +4,13 @@
 Common Azure module to generate a [Virtual Network Subnet](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet).
 This module must be used within a [Virtual Network](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview).
 
-## Requirements
-
-* [AzureRM Terraform provider](https://www.terraform.io/docs/providers/azurerm/) >= 1.31
-
 ## Terraform version compatibility
 
-| Module version | Terraform version |
-|----------------|-------------------|
-| >= 2.x.x       | 0.12.x            |
-| <  2.x.x       | 0.11.x            |
+| Module version    | Terraform version | AzureRM version |
+|-------------------|-------------------|-----------------|
+| >= 3.x.x          | 0.12.x            | >= 2.0          |
+| >= 2.x.x, < 3.x.x | 0.12.x            | <  2.0          |
+| <  2.x.x          | 0.11.x            | <  2.0          |
 
 ## Usage
 
