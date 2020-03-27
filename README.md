@@ -110,9 +110,9 @@ module "azure-network-subnet" {
 | environment | Project environment | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | name\_prefix | Optional prefix for subnet names | `string` | `""` | no |
-| network\_security\_group\_ids | The Network Security Group Ids map to associate with the subnets | `map(string)` | n/a | no |
+| network\_security\_group\_ids | The Network Security Group Ids map to associate with the subnets | `map(string)` | `null` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
-| route\_table\_ids | The Route Table Ids map to associate with the subnets | `map(string)` | n/a | no |
+| route\_table\_ids | The Route Table Ids map to associate with the subnets | `map(string)` | `null` | no |
 | service\_endpoints | The list of Service endpoints to associate with the subnet | `list(string)` | `[]` | no |
 | stack | Project stack name | `string` | n/a | yes |
 | subnet\_cidr\_list | The address prefix list to use for the subnets | `list(string)` | n/a | yes |
