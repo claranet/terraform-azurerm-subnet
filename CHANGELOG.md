@@ -1,7 +1,7 @@
-# Unreleased
+# v2.2.0 - 2020-03-27
 
 Added
-  * AZ-213: Add a parameter to manage enforce_private_link_endpoint_network_policies 
+  * AZ-213: Add a parameter to manage `enforce_private_link_endpoint_network_policies`.
 
 Changed
   * AZ-203: Fix `route_table_ids` and `network_security_group_ids` variables null values
