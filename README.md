@@ -4,13 +4,13 @@
 Common Azure module to generate a [Virtual Network Subnet](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet).
 This module must be used within a [Virtual Network](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview).
 
-## Terraform version compatibility
+## Version compatibility
 
-| Module version    | Terraform version | AzureRM version |
-|-------------------|-------------------|-----------------|
-| >= 3.x.x          | 0.12.x            | >= 2.0          |
-| >= 2.x.x, < 3.x.x | 0.12.x            | <  2.0          |
-| <  2.x.x          | 0.11.x            | <  2.0          |
+| Module version | Terraform version | AzureRM version |
+|----------------|-------------------| --------------- |
+| >= 3.x.x       | 0.12.x            | >= 2.0          |
+| >= 2.x.x       | 0.12.x            | < 2.0           |
+| <  2.x.x       | 0.11.x            | < 2.0           |
 
 ## Usage
 
@@ -105,7 +105,8 @@ module "azure-network-subnet" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
-| custom\_subnet\_names | Optional custom subnet names | `list(string)` | <pre>[<br>  ""<br>]<br></pre> | no |
+| custom\_subnet\_names | Optional custom subnet names | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| enforce\_private\_link | Enable or Disable network policies for the private link endpoint on the subnet | `bool` | `false` | no |
 | environment | Project environment | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | name\_prefix | Optional prefix for subnet names | `string` | `""` | no |

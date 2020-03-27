@@ -16,6 +16,8 @@ resource "azurerm_subnet" "subnet" {
   }
 
   service_endpoints = var.service_endpoints
+
+  enforce_private_link_endpoint_network_policies = var.enforce_private_link
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet_association" {

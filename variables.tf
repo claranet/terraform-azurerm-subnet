@@ -62,3 +62,9 @@ variable "service_endpoints" {
   type        = list(string)
   default     = []
 }
+
+variable "enforce_private_link" {
+  description = "Enable or Disable network policies for the private link endpoint on the subnet"
+  type        = bool
+  default     = false
+}
