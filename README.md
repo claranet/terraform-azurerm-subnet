@@ -103,16 +103,16 @@ module "azure-network-subnet" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
 | custom\_subnet\_names | Optional custom subnet names | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | enforce\_private\_link | Enable or Disable network policies for the private link endpoint on the subnet | `bool` | `false` | no |
 | environment | Project environment | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | name\_prefix | Optional prefix for subnet names | `string` | `""` | no |
-| network\_security\_group\_ids | The Network Security Group Ids map to associate with the subnets | `map(string)` | `"null"` | no |
+| network\_security\_group\_ids | The Network Security Group Ids map to associate with the subnets | `map(string)` | `null` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
-| route\_table\_ids | The Route Table Ids map to associate with the subnets | `map(string)` | `"null"` | no |
+| route\_table\_ids | The Route Table Ids map to associate with the subnets | `map(string)` | `null` | no |
 | service\_endpoints | The list of Service endpoints to associate with the subnet | `list(string)` | `[]` | no |
 | stack | Project stack name | `string` | n/a | yes |
 | subnet\_cidr\_list | The address prefix list to use for the subnets | `list(string)` | n/a | yes |
