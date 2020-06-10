@@ -7,7 +7,7 @@ resource "azurerm_subnet" "subnet" {
   )
   resource_group_name  = var.resource_group_name
   virtual_network_name = var.virtual_network_name
-  address_prefix       = element(var.subnet_cidr_list, count.index)
+  address_prefixes     = [element(var.subnet_cidr_list, count.index)]
 
   service_endpoints = var.service_endpoints
 
