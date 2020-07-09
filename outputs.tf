@@ -23,7 +23,7 @@ output "subnet_names" {
   value       = azurerm_subnet.subnet[*].name
 }
 
-output "subnet_ip_configurations" {
-  description = "The collection of IP Configurations with IPs within this subnet"
-  value       = azurerm_subnet.subnet[*].ip_configurations
+output "subnet_ips" {
+  description = "The collection of IPs within this subnet"
+  value       = var.subnet_cidr_list[*]
 }

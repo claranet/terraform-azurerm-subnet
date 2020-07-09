@@ -103,7 +103,7 @@ module "azure-network-subnet" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
+|------|-------------|------|---------|:--------:|
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
 | custom\_subnet\_names | Optional custom subnet names | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | enforce\_private\_link | Enable or Disable network policies for the private link endpoint on the subnet | `bool` | `false` | no |
@@ -124,7 +124,7 @@ module "azure-network-subnet" {
 |------|-------------|
 | subnet\_cidr\_list | CIDR list of the created subnets |
 | subnet\_ids | IDs of the created subnets |
-| subnet\_ip\_configurations | The collection of IP Configurations with IPs within this subnet |
+| subnet\_ips | The collection of IPs within this subnet |
 | subnet\_names | Names list of the created subnet |
 | subnets\_cidrs\_map | Map with names and CIDRs of the created subnets |
 | subnets\_ids\_map | Map with names and IDs of the created subnets |
