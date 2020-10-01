@@ -104,7 +104,9 @@ module "azure-network-subnet" {
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
+| custom\_enforce\_private\_links | The Enable or Disable network policies customed map for the private link endpoint on the subnets | `map(bool)` | `null` | no |
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
+| custom\_service\_endpoints |The list of Service endpoints customed map to associate with the subnets | `map(list(string))` | `null` | no |
 | custom\_subnet\_names | Optional custom subnet names | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
 | enforce\_private\_link | Enable or Disable network policies for the private link endpoint on the subnet | `bool` | `false` | no |
 | environment | Project environment | `string` | n/a | yes |
