@@ -6,3 +6,4 @@ resource_group_name="rg-test"
 virtual_network_name="vnet-test"
 subnet_cidr_list=["10.10.0.0/24"]
 service_endpoints=["Microsoft.AzureActiveDirectory","Microsoft.AzureCosmosDB"]
+custom_service_endpoints={vnet-test=["Microsoft.AzureActiveDirectory","Microsoft.AzureCosmosDB"]}
