@@ -1,3 +1,11 @@
+
+Added
+  * AZ-DOP-1309: Add a parameter to set a custom `service_endpoints` by subnet.
+  * AZ-DOP-1309: Add a parameter to set a custom `enforce_private_link_endpoint_network_policies` by subnet.
+
+Changed
+  * AZ-DOP-1309: Update README
+
 # v3.0.0 - 2020-07-09
 
 Breaking

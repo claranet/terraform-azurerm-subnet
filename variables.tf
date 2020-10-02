@@ -68,3 +68,15 @@ variable "enforce_private_link" {
   type        = bool
   default     = false
 }
+
+variable "custom_service_endpoints" {
+  description = "The list of Service endpoints customed map to associate with the subnets"
+  type        = map(list(string))
+  default     = null
+}
+
+variable "custom_enforce_private_links" {
+  description = "The Enable or Disable network policies customed map for the private link endpoint on the subnets"
+  type        = map(bool)
+  default     = null
+}
