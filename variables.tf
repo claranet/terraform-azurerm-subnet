@@ -68,3 +68,17 @@ variable "enforce_private_link" {
   type        = bool
   default     = false
 }
+
+variable "subnet_delegation" {
+  description = <<EOD
+Configuration delegations on subnet
+object({
+  name = object({
+    name = string,
+    actions = list(string)
+  })
+})
+EOD
+  type = map(any)
+  default = {}
+}
