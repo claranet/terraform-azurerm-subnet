@@ -1,8 +1,12 @@
+# v4.0.0 - Unreleased
+
+Breaking
+  * AZ173/AZ-344: Terraform 0.13 upgrade. Remove all `for_each` and `count` in module.
+
 # v3.1.0 - 2020-11-19
 
 Added
-  * AZ-332: Allow to configure subnet delegation
-  
+  * AZ-332: Allow to configure subnet delegation  
 # v3.0.0 - 2020-07-09
 
 Breaking
