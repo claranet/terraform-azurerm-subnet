@@ -85,6 +85,14 @@ module "azure-network-subnet" {
   resource_group_name  = module.rg.resource_group_name
   virtual_network_name = module.azure-network-vnet.virtual_network_name
   subnet_cidr_list     = values(local.subnets)
+  subnet_delegation    =     { 
+    app-service-plan = [
+      {
+        name    = "Microsoft.Web/serverFarms"
+        actions = [
+        "Microsoft.Network/virtualNetworks/subnets/action"]
+      }
+    ]}
 
   route_table_ids = {
     keys(local.subnets)[0] = module.azure-network-route-table.route_table_id
@@ -116,6 +124,7 @@ module "azure-network-subnet" {
 | service\_endpoints | The list of Service endpoints to associate with the subnet | `list(string)` | `[]` | no |
 | stack | Project stack name | `string` | n/a | yes |
 | subnet\_cidr\_list | The address prefix list to use for the subnets | `list(string)` | n/a | yes |
+| subnet\_delegation | Configuration delegations on subnet<br>object({<br>  name = object({<br>    name = string,<br>    actions = list(string)<br>  })<br>}) | `map(any)` | `{}` | no |
 | virtual\_network\_name | Virtual network name | `string` | n/a | yes |
 
 ## Outputs

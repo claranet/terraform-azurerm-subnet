@@ -79,6 +79,6 @@ object({
   })
 })
 EOD
-  type = map(any)
-  default = {}
+  type        = map(any)
+  default     = {}
 }
