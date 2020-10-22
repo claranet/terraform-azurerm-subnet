@@ -110,7 +110,7 @@ module "azure-network-subnet" {
     ]
   }
 
-  route_table_id = module.azure-network-route-table[each.key].route_table_id
+  route_table_id = module.azure-network-route-table.route_table_id
 
   network_security_group_id = module.azure-network-security-group[each.key].network_security_group_id
 
