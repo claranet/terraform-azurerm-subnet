@@ -165,11 +165,11 @@ module "network-security-group" {
 | Name | Description |
 |------|-------------|
 | subnet\_cidr\_list | CIDR list of the created subnets |
-| subnet\_ids | IDs of the created subnets |
+| subnet\_cidrs\_map | Map with names and CIDRs of the created subnets |
+| subnet\_id | Id of the created subnet |
 | subnet\_ips | The collection of IPs within this subnet |
 | subnet\_names | Names of the created subnet |
-| subnets\_cidrs\_map | Map with names and CIDRs of the created subnets |
-| subnets\_id | Id of the created subnet |
+
 
 ## Related documentation
 
