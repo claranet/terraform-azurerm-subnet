@@ -79,6 +79,6 @@ object({
   })
 })
 EOD
-  type = map(list(any))
-  default = {}
+  type        = map(list(any))
+  default     = {}
 }

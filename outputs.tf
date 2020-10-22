@@ -15,7 +15,7 @@ output "subnet_cidr_list" {
 
 output "subnets_cidrs_map" {
   description = "Map with names and CIDRs of the created subnets"
-  value       = {
+  value = {
     (azurerm_subnet.subnet.name) = azurerm_subnet.subnet.address_prefixes
   }
 }

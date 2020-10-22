@@ -1,5 +1,5 @@
 resource "azurerm_subnet" "subnet" {
-  name = coalesce(var.custom_subnet_name, local.subnet_name)
+  name                 = coalesce(var.custom_subnet_name, local.subnet_name)
   resource_group_name  = var.resource_group_name
   virtual_network_name = var.virtual_network_name
   address_prefixes     = var.subnet_cidr_list
@@ -31,7 +31,7 @@ resource "azurerm_subnet_network_security_group_association" "subnet_association
 }
 
 resource "azurerm_subnet_route_table_association" "route_table_association" {
-  count = var.route_table_id != null ? 1 : 0
+  count          = var.route_table_id != null ? 1 : 0
   subnet_id      = azurerm_subnet.subnet.id
   route_table_id = var.route_table_id
 }
