@@ -85,7 +85,7 @@ module "azure-network-subnet" {
   resource_group_name  = module.rg.resource_group_name
   virtual_network_name = module.azure-network-vnet.virtual_network_name
   subnet_cidr_list     = values(local.subnets)
-  subnet_delegation    =     { 
+  subnet_delegation    = { 
     app-service-plan = [
       {
         name    = "Microsoft.Web/serverFarms"
