@@ -44,7 +44,6 @@ locals {
       name              = "subnet1"
       cidr              = ["10.0.1.0/26"]
       service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Web"]
-      subnet_delegation = local.app_service_subnet_delegation
       nsg_name          = "subnet1-nsg"
       vnet_name         = module.azure-network-vnet.virtual_network_name
 
@@ -53,9 +52,8 @@ locals {
       name              = "subnet2"
       cidr              = ["10.0.1.64/26"]
       service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Web"]
-      nsg_name          = "subnet2-nsg",
+      nsg_name          = "subnet2-nsg"
       vnet_name         = module.azure-network-vnet.virtual_network_name
-
     }
   ]
 }
@@ -112,15 +110,15 @@ module "azure-network-subnet" {
 
   route_table_id = module.azure-network-route-table.route_table_id
 
-  network_security_group_id = module.azure-network-security-group[each.key].network_security_group_id
+  network_security_group_id = module.azure-network-security-group[each.value.nsg_name].network_security_group_id
 
-  service_endpoints = var.service_endpoints
+  service_endpoints = each.value.service_endpoints
 }
 
 module "network-security-group" {
   for_each = { for subnet in local.subnets : subnet.name => subnet }
   source   = "claranet/nsg/azurerm"
-  version  = "3.0.0"
+  version  = "x.x.x"
 
   client_name         = var.client_name
   environment         = var.environment
