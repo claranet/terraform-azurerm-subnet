@@ -11,6 +11,20 @@ resource "azurerm_subnet" "subnet" {
 
   service_endpoints = var.service_endpoints
 
+  dynamic "delegation" {
+    for_each = var.subnet_delegation
+    content {
+      name = delegation.key
+      dynamic "service_delegation" {
+        for_each = { (delegation.key) = delegation.value }
+        content {
+          name    = service_delegation.value.name
+          actions = service_delegation.value.actions
+        }
+      }
+    }
+  }
+
   enforce_private_link_endpoint_network_policies = var.enforce_private_link
 }
 
