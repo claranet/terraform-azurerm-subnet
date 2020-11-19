@@ -9,7 +9,7 @@ Changed
 # v3.1.0 - 2020-11-19
 
 Added
-  * AZ-332: Allow to configure subnet delegation  
+  * AZ-332: Allow to configure subnet delegation
   
 # v3.0.0 - 2020-07-09
 

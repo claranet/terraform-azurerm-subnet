@@ -38,13 +38,16 @@ module "rg" {
 }
 
 locals {
+  network_security_group_names = ["nsg1", "nsg2", "nsg3"]
+
   vnet_cidr = "10.0.1.0/24"
+
   subnets = [
     {
       name              = "subnet1"
       cidr              = ["10.0.1.0/26"]
       service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Web"]
-      nsg_name          = "subnet1-nsg"
+      nsg_name          = local.network_security_group_names[0]
       vnet_name         = module.azure-network-vnet.virtual_network_name
 
     },
@@ -52,7 +55,7 @@ locals {
       name              = "subnet2"
       cidr              = ["10.0.1.64/26"]
       service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Web"]
-      nsg_name          = "subnet2-nsg"
+      nsg_name          = local.network_security_group_names[2]
       vnet_name         = module.azure-network-vnet.virtual_network_name
     }
   ]
@@ -85,10 +88,28 @@ module "azure-network-route-table" {
   location_short      = module.azure-region.location_short
 }
 
+module "network-security-group" {
+  for_each = toset(local.network_security_group_names)
+  source   = "claranet/nsg/azurerm"
+  version  = "x.x.x"
+
+  client_name         = var.client_name
+  environment         = var.environment
+  location            = module.azure-region.location
+  location_short      = module.azure-region.location_short
+  resource_group_name = module.rg.resource_group_name
+  stack               = var.stack
+
+  custom_network_security_group_name = each.key
+
+  extra_tags = local.default_tags
+}
+
 module "azure-network-subnet" {
-  for_each = { for subnet in local.subnets : subnet.name => subnet }
   source  = "claranet/subnet/azurerm"
   version = "x.x.x"
+
+  for_each = { for subnet in local.subnets : subnet.name => subnet }
 
   environment         = var.environment
   location_short      = module.azure-region.location_short
@@ -113,23 +134,6 @@ module "azure-network-subnet" {
   network_security_group_id = module.azure-network-security-group[each.value.nsg_name].network_security_group_id
 
   service_endpoints = each.value.service_endpoints
-}
-
-module "network-security-group" {
-  for_each = { for subnet in local.subnets : subnet.name => subnet }
-  source   = "claranet/nsg/azurerm"
-  version  = "x.x.x"
-
-  client_name         = var.client_name
-  environment         = var.environment
-  location            = module.azure-region.location
-  location_short      = module.azure-region.location_short
-  resource_group_name = module.rg.resource_group_name
-  stack               = var.stack
-
-  custom_network_security_group_name = each.value.nsg_name
-
-  extra_tags = local.default_tags
 }
 
 ```
