@@ -1,4 +1,4 @@
-# v3.1.0 - Unreleased
+# v3.1.0 - 2020-11-19
 
 Added
   * AZ-332: Allow to configure subnet delegation
