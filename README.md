@@ -89,10 +89,10 @@ module "azure-network-subnet" {
     app-service-plan = [
       {
         name    = "Microsoft.Web/serverFarms"
-        actions = [
-        "Microsoft.Network/virtualNetworks/subnets/action"]
+        actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
       }
-    ]}
+    ]
+  }
 
   route_table_ids = {
     keys(local.subnets)[0] = module.azure-network-route-table.route_table_id
