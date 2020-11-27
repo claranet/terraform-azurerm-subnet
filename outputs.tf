@@ -1,26 +1,23 @@
-output "subnet_ids" {
-  description = "IDs of the created subnets"
-  value       = azurerm_subnet.subnet[*].id
-}
-
-output "subnets_ids_map" {
-  description = "Map with names and IDs of the created subnets"
-  value       = local.subnets_outputs
+output "subnet_id" {
+  description = "Id of the created subnet"
+  value       = azurerm_subnet.subnet.id
 }
 
 output "subnet_cidr_list" {
   description = "CIDR list of the created subnets"
-  value       = azurerm_subnet.subnet[*].address_prefix
+  value       = azurerm_subnet.subnet.address_prefixes
 }
 
-output "subnets_cidrs_map" {
+output "subnet_cidrs_map" {
   description = "Map with names and CIDRs of the created subnets"
-  value       = zipmap(azurerm_subnet.subnet[*].name, azurerm_subnet.subnet[*].address_prefix)
+  value = {
+    (azurerm_subnet.subnet.name) = azurerm_subnet.subnet.address_prefixes
+  }
 }
 
 output "subnet_names" {
-  description = "Names list of the created subnet"
-  value       = azurerm_subnet.subnet[*].name
+  description = "Names of the created subnet"
+  value       = azurerm_subnet.subnet.name
 }
 
 output "subnet_ips" {

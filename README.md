@@ -8,6 +8,7 @@ This module must be used within a [Virtual Network](https://docs.microsoft.com/e
 
 | Module version | Terraform version | AzureRM version |
 |----------------|-------------------| --------------- |
+| >= 4.x.x       | 0.13.x            | >= 2.0          |
 | >= 3.x.x       | 0.12.x            | >= 2.0          |
 | >= 2.x.x       | 0.12.x            | < 2.0           |
 | <  2.x.x       | 0.11.x            | < 2.0           |
@@ -37,12 +38,27 @@ module "rg" {
 }
 
 locals {
-  vnet_cidr = "10.10.0.0/16"
-  subnets = {
-    "${var.stack}-${var.client_name}-${module.azure-region.location_short}-${var.environment}-subnet1"      = "10.10.0.0/24"
-    "${var.stack}-${var.client_name}-${module.azure-region.location_short}-${var.environment}-subnetTWO"    = "10.10.1.0/24"
-    "${var.stack}-${var.client_name}-${module.azure-region.location_short}-${var.environment}-subnet_trois" = "10.10.2.0/24"
-  }
+  network_security_group_names = ["nsg1", "nsg2", "nsg3"]
+
+  vnet_cidr = "10.0.1.0/24"
+
+  subnets = [
+    {
+      name              = "subnet1"
+      cidr              = ["10.0.1.0/26"]
+      service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Web"]
+      nsg_name          = local.network_security_group_names[0]
+      vnet_name         = module.azure-network-vnet.virtual_network_name
+
+    },
+    {
+      name              = "subnet2"
+      cidr              = ["10.0.1.64/26"]
+      service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Web"]
+      nsg_name          = local.network_security_group_names[2]
+      vnet_name         = module.azure-network-vnet.virtual_network_name
+    }
+  ]
 }
 
 module "azure-network-vnet" {
@@ -72,19 +88,38 @@ module "azure-network-route-table" {
   location_short      = module.azure-region.location_short
 }
 
+module "network-security-group" {
+  for_each = toset(local.network_security_group_names)
+  source   = "claranet/nsg/azurerm"
+  version  = "x.x.x"
+
+  client_name         = var.client_name
+  environment         = var.environment
+  location            = module.azure-region.location
+  location_short      = module.azure-region.location_short
+  resource_group_name = module.rg.resource_group_name
+  stack               = var.stack
+
+  custom_network_security_group_name = each.key
+
+  extra_tags = local.default_tags
+}
+
 module "azure-network-subnet" {
   source  = "claranet/subnet/azurerm"
   version = "x.x.x"
+
+  for_each = { for subnet in local.subnets : subnet.name => subnet }
 
   environment         = var.environment
   location_short      = module.azure-region.location_short
   client_name         = var.client_name
   stack               = var.stack
-  custom_subnet_names = keys(local.subnets)
+  custom_subnet_name  = each.key
 
   resource_group_name  = module.rg.resource_group_name
-  virtual_network_name = module.azure-network-vnet.virtual_network_name
-  subnet_cidr_list     = values(local.subnets)
+  virtual_network_name = each.value.vnet_name
+  subnet_cidr_list     = each.value.cidr
   subnet_delegation    = { 
     app-service-plan = [
       {
@@ -94,18 +129,13 @@ module "azure-network-subnet" {
     ]
   }
 
-  route_table_ids = {
-    keys(local.subnets)[0] = module.azure-network-route-table.route_table_id
-    keys(local.subnets)[2] = module.azure-network-route-table.route_table_id
-  }
+  route_table_id = module.azure-network-route-table.route_table_id
 
-  network_security_group_ids = {
-    keys(local.subnets)[1] = module.network-security-group-A.network_security_group_id
-    keys(local.subnets)[2] = module.network-security-group-B.network_security_group_id
-  }
+  network_security_group_id = module.azure-network-security-group[each.value.nsg_name].network_security_group_id
 
-  service_endpoints = var.service_endpoints
+  service_endpoints = each.value.service_endpoints
 }
+
 ```
 
 ## Inputs
@@ -113,18 +143,23 @@ module "azure-network-subnet" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
-| custom\_subnet\_names | Optional custom subnet names | `list(string)` | <pre>[<br>  ""<br>]</pre> | no |
+| custom\_subnet\_name | Optional custom subnet name | `string` | `null` | no |
 | enforce\_private\_link | Enable or Disable network policies for the private link endpoint on the subnet | `bool` | `false` | no |
 | environment | Project environment | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | name\_prefix | Optional prefix for subnet names | `string` | `""` | no |
-| network\_security\_group\_ids | The Network Security Group Ids map to associate with the subnets | `map(string)` | `null` | no |
+| network\_security\_group\_id | The Network Security Group Id to associate with the subnets | `string` | `null` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
-| route\_table\_ids | The Route Table Ids map to associate with the subnets | `map(string)` | `null` | no |
+| route\_table\_id | The Route Table Id to associate with the subnet | `string` | `null` | no |
 | service\_endpoints | The list of Service endpoints to associate with the subnet | `list(string)` | `[]` | no |
 | stack | Project stack name | `string` | n/a | yes |
+<<<<<<< HEAD
 | subnet\_cidr\_list | The address prefix list to use for the subnets | `list(string)` | n/a | yes |
 | subnet\_delegation | Configuration delegations on subnet<br>object({<br>  name = object({<br>    name = string,<br>    actions = list(string)<br>  })<br>}) | `map(any)` | `{}` | no |
+=======
+| subnet\_cidr\_list | The address prefix list to use for the subnet | `list(string)` | n/a | yes |
+| subnet\_delegation | Configuration delegations on subnet<br>object({<br>  name = object({<br>    name = string,<br>    actions = list(string)<br>  })<br>}) | `map(list(any))` | `{}` | no |
+>>>>>>> AZ-344 Upgrade module to TF 0.13
 | virtual\_network\_name | Virtual network name | `string` | n/a | yes |
 
 ## Outputs
@@ -132,11 +167,11 @@ module "azure-network-subnet" {
 | Name | Description |
 |------|-------------|
 | subnet\_cidr\_list | CIDR list of the created subnets |
-| subnet\_ids | IDs of the created subnets |
+| subnet\_cidrs\_map | Map with names and CIDRs of the created subnets |
+| subnet\_id | Id of the created subnet |
 | subnet\_ips | The collection of IPs within this subnet |
-| subnet\_names | Names list of the created subnet |
-| subnets\_cidrs\_map | Map with names and CIDRs of the created subnets |
-| subnets\_ids\_map | Map with names and IDs of the created subnets |
+| subnet\_names | Names of the created subnet |
+
 
 ## Related documentation
 

@@ -1,13 +1,8 @@
 resource "azurerm_subnet" "subnet" {
-  count = length(var.subnet_cidr_list)
-
-  name = coalesce(
-    element(var.custom_subnet_names, count.index),
-    length(var.subnet_cidr_list) == 1 ? local.subnet_name : "${local.subnet_name}${count.index}",
-  )
+  name                 = coalesce(var.custom_subnet_name, local.subnet_name)
   resource_group_name  = var.resource_group_name
   virtual_network_name = var.virtual_network_name
-  address_prefixes     = [element(var.subnet_cidr_list, count.index)]
+  address_prefixes     = var.subnet_cidr_list
 
   service_endpoints = var.service_endpoints
 
@@ -16,7 +11,7 @@ resource "azurerm_subnet" "subnet" {
     content {
       name = delegation.key
       dynamic "service_delegation" {
-        for_each = { (delegation.key) = delegation.value }
+        for_each = toset(delegation.value)
         content {
           name    = service_delegation.value.name
           actions = service_delegation.value.actions
@@ -29,15 +24,14 @@ resource "azurerm_subnet" "subnet" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet_association" {
-  for_each = coalesce(var.network_security_group_ids, {})
+  count = var.network_security_group_id != null ? 1 : 0
 
-  subnet_id                 = lookup(local.subnets_outputs, each.key)
-  network_security_group_id = each.value
+  subnet_id                 = azurerm_subnet.subnet.id
+  network_security_group_id = var.network_security_group_id
 }
 
 resource "azurerm_subnet_route_table_association" "route_table_association" {
-  for_each = coalesce(var.route_table_ids, {})
-
-  subnet_id      = lookup(local.subnets_outputs, each.key)
-  route_table_id = each.value
+  count          = var.route_table_id != null ? 1 : 0
+  subnet_id      = azurerm_subnet.subnet.id
+  route_table_id = var.route_table_id
 }

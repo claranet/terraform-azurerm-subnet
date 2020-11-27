@@ -14,10 +14,10 @@ variable "name_prefix" {
   default     = ""
 }
 
-variable "custom_subnet_names" {
-  description = "Optional custom subnet names"
-  type        = list(string)
-  default     = [""]
+variable "custom_subnet_name" {
+  description = "Optional custom subnet name"
+  type        = string
+  default     = null
 }
 
 variable "environment" {
@@ -41,19 +41,19 @@ variable "virtual_network_name" {
 }
 
 variable "subnet_cidr_list" {
-  description = "The address prefix list to use for the subnets"
+  description = "The address prefix list to use for the subnet"
   type        = list(string)
 }
 
-variable "route_table_ids" {
-  description = "The Route Table Ids map to associate with the subnets"
-  type        = map(string)
+variable "route_table_id" {
+  description = "The Route Table Id to associate with the subnet"
+  type        = string
   default     = null
 }
 
-variable "network_security_group_ids" {
-  description = "The Network Security Group Ids map to associate with the subnets"
-  type        = map(string)
+variable "network_security_group_id" {
+  description = "The Network Security Group Id to associate with the subnets"
+  type        = string
   default     = null
 }
 
@@ -79,6 +79,6 @@ object({
   })
 })
 EOD
-  type        = map(any)
+  type        = map(list(any))
   default     = {}
 }

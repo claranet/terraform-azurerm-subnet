@@ -1,3 +1,11 @@
+# v4.0.0 - Unreleased
+
+Breaking
+  * AZ-344: Terraform 0.13 upgrade. Remove all `for_each` and `count` in module.
+
+Changed
+  * AZ-273: Upgrade CI
+
 # v3.1.0 - 2020-11-19
 
 Added
