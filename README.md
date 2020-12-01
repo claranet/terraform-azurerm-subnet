@@ -153,13 +153,8 @@ module "azure-network-subnet" {
 | route\_table\_id | The Route Table Id to associate with the subnet | `string` | `null` | no |
 | service\_endpoints | The list of Service endpoints to associate with the subnet | `list(string)` | `[]` | no |
 | stack | Project stack name | `string` | n/a | yes |
-<<<<<<< HEAD
-| subnet\_cidr\_list | The address prefix list to use for the subnets | `list(string)` | n/a | yes |
-| subnet\_delegation | Configuration delegations on subnet<br>object({<br>  name = object({<br>    name = string,<br>    actions = list(string)<br>  })<br>}) | `map(any)` | `{}` | no |
-=======
 | subnet\_cidr\_list | The address prefix list to use for the subnet | `list(string)` | n/a | yes |
 | subnet\_delegation | Configuration delegations on subnet<br>object({<br>  name = object({<br>    name = string,<br>    actions = list(string)<br>  })<br>}) | `map(list(any))` | `{}` | no |
->>>>>>> AZ-344 Upgrade module to TF 0.13
 | virtual\_network\_name | Virtual network name | `string` | n/a | yes |
 
 ## Outputs
@@ -171,7 +166,6 @@ module "azure-network-subnet" {
 | subnet\_id | Id of the created subnet |
 | subnet\_ips | The collection of IPs within this subnet |
 | subnet\_names | Names of the created subnet |
-
 
 ## Related documentation
 
