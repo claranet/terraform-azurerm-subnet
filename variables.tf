@@ -50,6 +50,7 @@ variable "route_table_name" {
   type        = string
   default     = null
 }
+
 variable "route_table_rg" {
   description = "The Route Table RG to associate with the subnet. Default is the same RG than the subnet."
   type        = string
