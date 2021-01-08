@@ -1,3 +1,8 @@
+# Unreleased
+
+Breaking
+  * AZ-405: Fix dependencies issues with network security group and route table associations
+
 # v4.1.0 - 2020-12-15
 
 Changed
