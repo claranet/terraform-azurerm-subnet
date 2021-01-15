@@ -1,4 +1,4 @@
-# Unreleased
+# v4.2.0 - 2021-01-15
 
 Breaking
   * AZ-405: Fix dependencies issues with network security group and route table associations
@@ -6,7 +6,7 @@ Breaking
 # v4.1.0 - 2020-12-15
 
 Changed
-  * AZ-398: Force lowercases on default generated name
+  * AZ-398: Force lowercase on default generated name
 
 # v3.2.0/v4.0.0 - 2020-11-27
 
