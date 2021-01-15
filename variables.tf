@@ -45,14 +45,26 @@ variable "subnet_cidr_list" {
   type        = list(string)
 }
 
-variable "route_table_id" {
-  description = "The Route Table Id to associate with the subnet"
+variable "route_table_name" {
+  description = "The Route Table name to associate with the subnet"
   type        = string
   default     = null
 }
 
-variable "network_security_group_id" {
-  description = "The Network Security Group Id to associate with the subnets"
+variable "route_table_rg" {
+  description = "The Route Table RG to associate with the subnet. Default is the same RG than the subnet."
+  type        = string
+  default     = null
+}
+
+variable "network_security_group_name" {
+  description = "The Network Security Group name to associate with the subnets"
+  type        = string
+  default     = null
+}
+
+variable "network_security_group_rg" {
+  description = "The Network Security Group RG to associate with the subnet. Default is the same RG than the subnet."
   type        = string
   default     = null
 }

@@ -24,14 +24,18 @@ resource "azurerm_subnet" "subnet" {
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet_association" {
-  count = var.network_security_group_id != null ? 1 : 0
+  count = var.network_security_group_name == null ? 0 : 1
 
   subnet_id                 = azurerm_subnet.subnet.id
-  network_security_group_id = var.network_security_group_id
+  network_security_group_id = local.network_security_group_id
 }
 
 resource "azurerm_subnet_route_table_association" "route_table_association" {
-  count          = var.route_table_id != null ? 1 : 0
+  count = var.route_table_name == null ? 0 : 1
+
   subnet_id      = azurerm_subnet.subnet.id
-  route_table_id = var.route_table_id
+  route_table_id = local.route_table_id
+}
+
+data "azurerm_subscription" "current" {
 }

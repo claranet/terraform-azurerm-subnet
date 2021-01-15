@@ -88,7 +88,7 @@ module "azure-network-route-table" {
   location_short      = module.azure-region.location_short
 }
 
-module "network-security-group" {
+module "azure-network-security-group" {
   for_each = toset(local.network_security_group_names)
   source   = "claranet/nsg/azurerm"
   version  = "x.x.x"
@@ -101,8 +101,6 @@ module "network-security-group" {
   stack               = var.stack
 
   custom_network_security_group_name = each.key
-
-  extra_tags = local.default_tags
 }
 
 module "azure-network-subnet" {
@@ -129,9 +127,9 @@ module "azure-network-subnet" {
     ]
   }
 
-  route_table_id = module.azure-network-route-table.route_table_id
+  route_table_name = module.azure-network-route-table.route_table_name
 
-  network_security_group_id = module.azure-network-security-group[each.value.nsg_name].network_security_group_id
+  network_security_group_name = each.value.nsg_name
 
   service_endpoints = each.value.service_endpoints
 }
@@ -148,9 +146,11 @@ module "azure-network-subnet" {
 | environment | Project environment | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | name\_prefix | Optional prefix for subnet names | `string` | `""` | no |
-| network\_security\_group\_id | The Network Security Group Id to associate with the subnets | `string` | `null` | no |
+| network\_security\_group\_name | The Network Security Group name to associate with the subnets | `string` | `null` | no |
+| network\_security\_group\_rg | The Network Security Group RG to associate with the subnet. Default is the same RG than the subnet. | `string` | `null` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
-| route\_table\_id | The Route Table Id to associate with the subnet | `string` | `null` | no |
+| route\_table\_name | The Route Table name to associate with the subnet | `string` | `null` | no |
+| route\_table\_rg | The Route Table RG to associate with the subnet. Default is the same RG than the subnet. | `string` | `null` | no |
 | service\_endpoints | The list of Service endpoints to associate with the subnet | `list(string)` | `[]` | no |
 | stack | Project stack name | `string` | n/a | yes |
 | subnet\_cidr\_list | The address prefix list to use for the subnet | `list(string)` | n/a | yes |
