@@ -4,8 +4,6 @@ locals {
 
   subnet_name = coalesce(var.custom_subnet_name, "${local.default_name}-subnet")
 
-  subnets_outputs = zipmap(azurerm_subnet.subnet[*].name, azurerm_subnet.subnet[*].id)
-
   network_security_group_rg = coalesce(var.network_security_group_rg, var.resource_group_name)
   route_table_rg            = coalesce(var.route_table_rg, var.resource_group_name)
 

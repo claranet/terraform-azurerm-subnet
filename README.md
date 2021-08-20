@@ -136,45 +136,57 @@ module "azure-network-subnet" {
 
 ```
 
+<!-- BEGIN_TF_DOCS -->
 ## Providers
 
-| Name    | Version  |
-| ------- | -------- |
+| Name | Version |
+|------|---------|
 | azurerm | >= 2.8.0 |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [azurerm_subnet.subnet](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet) | resource |
+| [azurerm_subnet_network_security_group_association.subnet_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_network_security_group_association) | resource |
+| [azurerm_subnet_route_table_association.route_table_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_route_table_association) | resource |
+| [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
 
 ## Inputs
 
-| Name                           | Description                                                                                                                            | Type             | Default | Required |
-| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ------- | :------: |
-| client\_name                   | Client name/account used in naming                                                                                                     | `string`         | n/a     |   yes    |
-| custom\_subnet\_name           | Optional custom subnet name                                                                                                            | `string`         | `null`  |    no    |
-| enforce\_private\_link         | Enable or Disable network policies for the private link endpoint on the subnet                                                         | `bool`           | `false` |    no    |
-| environment                    | Project environment                                                                                                                    | `string`         | n/a     |   yes    |
-| location\_short                | Short string for Azure location.                                                                                                       | `string`         | n/a     |   yes    |
-| name\_prefix                   | Optional prefix for subnet names                                                                                                       | `string`         | `""`    |    no    |
-| network\_security\_group\_name | The Network Security Group name to associate with the subnets                                                                          | `string`         | `null`  |    no    |
-| network\_security\_group\_rg   | The Network Security Group RG to associate with the subnet. Default is the same RG than the subnet.                                    | `string`         | `null`  |    no    |
-| resource\_group\_name          | Resource group name                                                                                                                    | `string`         | n/a     |   yes    |
-| route\_table\_name             | The Route Table name to associate with the subnet                                                                                      | `string`         | `null`  |    no    |
-| route\_table\_rg               | The Route Table RG to associate with the subnet. Default is the same RG than the subnet.                                               | `string`         | `null`  |    no    |
-| service\_endpoints             | The list of Service endpoints to associate with the subnet                                                                             | `list(string)`   | `[]`    |    no    |
-| stack                          | Project stack name                                                                                                                     | `string`         | n/a     |   yes    |
-| subnet\_cidr\_list             | The address prefix list to use for the subnet                                                                                          | `list(string)`   | n/a     |   yes    |
-| subnet\_delegation             | Configuration delegations on subnet<br>object({<br>  name = object({<br>    name = string,<br>    actions = list(string)<br>  })<br>}) | `map(list(any))` | `{}`    |    no    |
-| virtual\_network\_name         | Virtual network name                                                                                                                   | `string`         | n/a     |   yes    |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| client\_name | Client name/account used in naming | `string` | n/a | yes |
+| custom\_subnet\_name | Optional custom subnet name | `string` | `null` | no |
+| enforce\_private\_link | Enable or Disable network policies for the private link endpoint on the subnet | `bool` | `false` | no |
+| environment | Project environment | `string` | n/a | yes |
+| location\_short | Short string for Azure location. | `string` | n/a | yes |
+| name\_prefix | Optional prefix for subnet names | `string` | `""` | no |
+| network\_security\_group\_name | The Network Security Group name to associate with the subnets | `string` | `null` | no |
+| network\_security\_group\_rg | The Network Security Group RG to associate with the subnet. Default is the same RG than the subnet. | `string` | `null` | no |
+| resource\_group\_name | Resource group name | `string` | n/a | yes |
+| route\_table\_name | The Route Table name to associate with the subnet | `string` | `null` | no |
+| route\_table\_rg | The Route Table RG to associate with the subnet. Default is the same RG than the subnet. | `string` | `null` | no |
+| service\_endpoints | The list of Service endpoints to associate with the subnet | `list(string)` | `[]` | no |
+| stack | Project stack name | `string` | n/a | yes |
+| subnet\_cidr\_list | The address prefix list to use for the subnet | `list(string)` | n/a | yes |
+| subnet\_delegation | Configuration delegations on subnet<br>object({<br>  name = object({<br>    name = string,<br>    actions = list(string)<br>  })<br>}) | `map(list(any))` | `{}` | no |
+| virtual\_network\_name | Virtual network name | `string` | n/a | yes |
 
 ## Outputs
 
-| Name               | Description                                     |
-| ------------------ | ----------------------------------------------- |
-| subnet\_cidr\_list | CIDR list of the created subnets                |
+| Name | Description |
+|------|-------------|
+| subnet\_cidr\_list | CIDR list of the created subnets |
 | subnet\_cidrs\_map | Map with names and CIDRs of the created subnets |
-| subnet\_id         | Id of the created subnet                        |
-| subnet\_ips        | The collection of IPs within this subnet        |
-| subnet\_names      | Names of the created subnet                     |
-
+| subnet\_id | Id of the created subnet |
+| subnet\_ips | The collection of IPs within this subnet |
+| subnet\_names | Names of the created subnet |
+<!-- END_TF_DOCS -->
 ## Related documentation
-
-Terraform resource documentation: [terraform.io/docs/providers/azurerm/r/subnet.html](https://www.terraform.io/docs/providers/azurerm/r/subnet.html)
 
 Microsoft Azure documentation: [docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet)
