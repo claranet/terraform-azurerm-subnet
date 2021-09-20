@@ -4,10 +4,12 @@
 Common Azure module to generate a [Virtual Network Subnet](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-network-manage-subnet).
 This module must be used within a [Virtual Network](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview).
 
-## Version compatibility
+<!-- BEGIN_TF_DOCS -->
+## Global versionning rule for Claranet Azure modules
 
 | Module version | Terraform version | AzureRM version |
 | -------------- | ----------------- | --------------- |
+| >= 5.x.x       | 0.15.x & 1.0.x    | >= 2.0          |
 | >= 4.x.x       | 0.13.x            | >= 2.0          |
 | >= 3.x.x       | 0.12.x            | >= 2.0          |
 | >= 2.x.x       | 0.12.x            | < 2.0           |
@@ -20,7 +22,7 @@ which set some terraform variables in the environment needed by this module.
 More details about variables set by the `terraform-wrapper` available in the [documentation](https://github.com/claranet/terraform-wrapper#environment).
 
 ```hcl
-module "azure-region" {
+module "azure_region" {
   source  = "claranet/regions/azurerm"
   version = "x.x.x"
 
@@ -31,94 +33,63 @@ module "rg" {
   source  = "claranet/rg/azurerm"
   version = "x.x.x"
 
-  location    = module.azure-region.location
+  location    = module.azure_region.location
   client_name = var.client_name
   environment = var.environment
   stack       = var.stack
 }
-
-locals {
-  network_security_group_names = ["nsg1", "nsg2", "nsg3"]
-
-  vnet_cidr = "10.0.1.0/24"
-
-  subnets = [
-    {
-      name              = "subnet1"
-      cidr              = ["10.0.1.0/26"]
-      service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Web"]
-      nsg_name          = local.network_security_group_names[0]
-      vnet_name         = module.azure-network-vnet.virtual_network_name
-
-    },
-    {
-      name              = "subnet2"
-      cidr              = ["10.0.1.64/26"]
-      service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Web"]
-      nsg_name          = local.network_security_group_names[2]
-      vnet_name         = module.azure-network-vnet.virtual_network_name
-    }
-  ]
-}
-
-module "azure-network-vnet" {
+module "azure_network_vnet" {
   source  = "claranet/vnet/azurerm"
   version = "x.x.x"
 
-  environment      = var.environment
-  location         = module.azure-region.location
-  location_short   = module.azure-region.location_short
-  client_name      = var.client_name
-  stack            = var.stack
-  custom_vnet_name = var.custom_vnet_name
-
+  environment         = var.environment
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
+  client_name         = var.client_name
+  stack               = var.stack
   resource_group_name = module.rg.resource_group_name
-  vnet_cidr           = [local.vnet_cidr]
+
+  vnet_cidr = ["10.0.1.0/24"]
 }
 
-module "azure-network-route-table" {
+module "azure_network_route_table" {
   source  = "claranet/route-table/azurerm"
   version = "x.x.x"
 
   client_name         = var.client_name
   environment         = var.environment
   stack               = var.stack
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
   resource_group_name = module.rg.resource_group_name
-  location            = module.azure-region.location
-  location_short      = module.azure-region.location_short
 }
 
-module "azure-network-security-group" {
-  for_each = toset(local.network_security_group_names)
-  source   = "claranet/nsg/azurerm"
-  version  = "x.x.x"
+module "azure_network_security_group" {
+  source  = "claranet/nsg/azurerm"
+  version = "x.x.x"
 
   client_name         = var.client_name
   environment         = var.environment
-  location            = module.azure-region.location
-  location_short      = module.azure-region.location_short
-  resource_group_name = module.rg.resource_group_name
+  location            = module.azure_region.location
+  location_short      = module.azure_region.location_short
   stack               = var.stack
-
-  custom_network_security_group_name = each.key
+  resource_group_name = module.rg.resource_group_name
 }
 
-module "azure-network-subnet" {
+module "azure_network_subnet" {
   source  = "claranet/subnet/azurerm"
   version = "x.x.x"
 
-  for_each = { for subnet in local.subnets : subnet.name => subnet }
+  environment    = var.environment
+  location_short = module.azure_region.location_short
+  client_name    = var.client_name
+  stack          = var.stack
 
-  environment         = var.environment
-  location_short      = module.azure-region.location_short
-  client_name         = var.client_name
-  stack               = var.stack
-  custom_subnet_name  = each.key
+  resource_group_name = module.rg.resource_group_name
 
-  resource_group_name  = module.rg.resource_group_name
-  virtual_network_name = each.value.vnet_name
-  subnet_cidr_list     = each.value.cidr
-  subnet_delegation    = { 
+  virtual_network_name = module.azure_network_vnet.virtual_network_name
+  subnet_cidr_list     = ["10.0.1.0/26"]
+  subnet_delegation = {
     app-service-plan = [
       {
         name    = "Microsoft.Web/serverFarms"
@@ -127,16 +98,15 @@ module "azure-network-subnet" {
     ]
   }
 
-  route_table_name = module.azure-network-route-table.route_table_name
+  route_table_name = module.azure_network_route_table.route_table_name
 
-  network_security_group_name = each.value.nsg_name
+  network_security_group_name = module.azure_network_security_group.network_security_group_name
 
-  service_endpoints = each.value.service_endpoints
+  service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Web"]
 }
 
 ```
 
-<!-- BEGIN_TF_DOCS -->
 ## Providers
 
 | Name | Version |
