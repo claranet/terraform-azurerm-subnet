@@ -5,7 +5,7 @@ Common Azure module to generate a [Virtual Network Subnet](https://docs.microsof
 This module must be used within a [Virtual Network](https://docs.microsoft.com/en-us/azure/virtual-network/virtual-networks-overview).
 
 <!-- BEGIN_TF_DOCS -->
-## Global versionning rule for Claranet Azure modules
+## Global versioning rule for Claranet Azure modules
 
 | Module version | Terraform version | AzureRM version |
 | -------------- | ----------------- | --------------- |
