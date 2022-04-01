@@ -111,6 +111,7 @@ module "azure_network_subnet" {
 
 | Name | Version |
 |------|---------|
+| azurecaf | ~> 1.1 |
 | azurerm | >= 2.8.0 |
 
 ## Modules
@@ -121,6 +122,7 @@ No modules.
 
 | Name | Type |
 |------|------|
+| [azurecaf_name.subnet](https://registry.terraform.io/providers/aztfmod/azurecaf/latest/docs/resources/name) | resource |
 | [azurerm_subnet.subnet](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet) | resource |
 | [azurerm_subnet_network_security_group_association.subnet_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_network_security_group_association) | resource |
 | [azurerm_subnet_route_table_association.route_table_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_route_table_association) | resource |
@@ -135,7 +137,8 @@ No modules.
 | enforce\_private\_link | Enable or Disable network policies for the private link endpoint on the subnet | `bool` | `false` | no |
 | environment | Project environment | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
-| name\_prefix | Optional prefix for subnet names | `string` | `""` | no |
+| name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
+| name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
 | network\_security\_group\_name | The Network Security Group name to associate with the subnets | `string` | `null` | no |
 | network\_security\_group\_rg | The Network Security Group RG to associate with the subnet. Default is the same RG than the subnet. | `string` | `null` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
@@ -145,6 +148,7 @@ No modules.
 | stack | Project stack name | `string` | n/a | yes |
 | subnet\_cidr\_list | The address prefix list to use for the subnet | `list(string)` | n/a | yes |
 | subnet\_delegation | Configuration delegations on subnet<br>object({<br>  name = object({<br>    name = string,<br>    actions = list(string)<br>  })<br>}) | `map(list(any))` | `{}` | no |
+| use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_subnet_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | virtual\_network\_name | Virtual network name | `string` | n/a | yes |
 
 ## Outputs

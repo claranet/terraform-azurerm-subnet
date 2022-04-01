@@ -8,18 +8,6 @@ variable "client_name" {
   type        = string
 }
 
-variable "name_prefix" {
-  description = "Optional prefix for subnet names"
-  type        = string
-  default     = ""
-}
-
-variable "custom_subnet_name" {
-  description = "Optional custom subnet name"
-  type        = string
-  default     = null
-}
-
 variable "environment" {
   description = "Project environment"
   type        = string
