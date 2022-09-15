@@ -1,3 +1,11 @@
+# Unreleased
+
+Changed
+  * AZ-844: `enforce_private_link_endpoint_network_policies` will be removed in favour of the property `private_endpoint_network_policies_enabled`
+
+Breaking
+  * AZ-844: Require Terraform `v1.1+` and AzureRM provider `v3.18+`
+
 # v5.0.0 - 2022-03-31
 
 Breaking

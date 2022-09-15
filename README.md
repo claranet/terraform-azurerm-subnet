@@ -112,7 +112,7 @@ module "azure_network_subnet" {
 | Name | Version |
 |------|---------|
 | azurecaf | ~> 1.1 |
-| azurerm | >= 2.8.0 |
+| azurerm | ~> 3.18 |
 
 ## Modules
 
