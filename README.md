@@ -134,19 +134,21 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
 | custom\_subnet\_name | Optional custom subnet name | `string` | `null` | no |
-| enforce\_private\_link | Enable or Disable network policies for the private link endpoint on the subnet | `bool` | `false` | no |
 | environment | Project environment | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
-| network\_security\_group\_name | The Network Security Group name to associate with the subnets | `string` | `null` | no |
+| network\_security\_group\_name | The Network Security Group name to associate with the subnets. | `string` | `null` | no |
 | network\_security\_group\_rg | The Network Security Group RG to associate with the subnet. Default is the same RG than the subnet. | `string` | `null` | no |
+| private\_link\_endpoint\_enabled | Enable or Disable network policies for the private endpoint on the subnet. | `bool` | `false` | no |
+| private\_link\_service\_enabled | Enable or Disable network policies for the private link service on the subnet. | `bool` | `false` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
-| route\_table\_name | The Route Table name to associate with the subnet | `string` | `null` | no |
+| route\_table\_name | The Route Table name to associate with the subnet. | `string` | `null` | no |
 | route\_table\_rg | The Route Table RG to associate with the subnet. Default is the same RG than the subnet. | `string` | `null` | no |
-| service\_endpoints | The list of Service endpoints to associate with the subnet | `list(string)` | `[]` | no |
+| service\_endpoint\_policy\_ids | value | `list(string)` | `null` | no |
+| service\_endpoints | The list of Service endpoints to associate with the subnet. | `list(string)` | `[]` | no |
 | stack | Project stack name | `string` | n/a | yes |
-| subnet\_cidr\_list | The address prefix list to use for the subnet | `list(string)` | n/a | yes |
+| subnet\_cidr\_list | The address prefix list to use for the subnet. | `list(string)` | n/a | yes |
 | subnet\_delegation | Configuration delegations on subnet<br>object({<br>  name = object({<br>    name = string,<br>    actions = list(string)<br>  })<br>}) | `map(list(any))` | `{}` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_subnet_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | virtual\_network\_name | Virtual network name | `string` | n/a | yes |
