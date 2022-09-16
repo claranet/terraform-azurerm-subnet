@@ -29,12 +29,12 @@ variable "virtual_network_name" {
 }
 
 variable "subnet_cidr_list" {
-  description = "The address prefix list to use for the subnet"
+  description = "The address prefix list to use for the subnet."
   type        = list(string)
 }
 
 variable "route_table_name" {
-  description = "The Route Table name to associate with the subnet"
+  description = "The Route Table name to associate with the subnet."
   type        = string
   default     = null
 }
@@ -46,7 +46,7 @@ variable "route_table_rg" {
 }
 
 variable "network_security_group_name" {
-  description = "The Network Security Group name to associate with the subnets"
+  description = "The Network Security Group name to associate with the subnets."
   type        = string
   default     = null
 }
@@ -58,15 +58,27 @@ variable "network_security_group_rg" {
 }
 
 variable "service_endpoints" {
-  description = "The list of Service endpoints to associate with the subnet"
+  description = "The list of Service endpoints to associate with the subnet."
   type        = list(string)
   default     = []
 }
 
-variable "enforce_private_link" {
-  description = "Enable or Disable network policies for the private link endpoint on the subnet"
+variable "service_endpoint_policy_ids" {
+  description = "The list of IDs of Service Endpoint Policies to associate with the subnet."
+  type        = list(string)
+  default     = null
+}
+
+variable "private_link_endpoint_enabled" {
+  description = "Enable or disable network policies for the Private Endpoint on the subnet."
   type        = bool
-  default     = false
+  default     = null
+}
+
+variable "private_link_service_enabled" {
+  description = "Enable or disable network policies for the Private Link Service on the subnet."
+  type        = bool
+  default     = null
 }
 
 variable "subnet_delegation" {

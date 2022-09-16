@@ -5,6 +5,7 @@ Changed
 
 Breaking
   * AZ-844: Require Terraform `v1.1+` and AzureRM provider `v3.18+`
+  * AZ-844: Add more services endpoints and private link parameters
 
 # v5.0.0 - 2022-03-31
 
