@@ -64,19 +64,19 @@ variable "service_endpoints" {
 }
 
 variable "service_endpoint_policy_ids" {
-  description = "value"
+  description = "The list of IDs of Service Endpoint Policies to associate with the subnet."
   type        = list(string)
   default     = null
 }
 
 variable "private_link_endpoint_enabled" {
-  description = "Enable or Disable network policies for the private endpoint on the subnet."
+  description = "Enable or disable network policies for the Private Endpoint on the subnet."
   type        = bool
   default     = null
 }
 
 variable "private_link_service_enabled" {
-  description = "Enable or Disable network policies for the private link service on the subnet."
+  description = "Enable or disable network policies for the Private Link Service on the subnet."
   type        = bool
   default     = null
 }
