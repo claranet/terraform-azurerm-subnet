@@ -20,7 +20,7 @@ resource "azurerm_subnet" "subnet" {
     }
   }
 
-  enforce_private_link_endpoint_network_policies = var.enforce_private_link
+  private_endpoint_network_policies_enabled = var.enforce_private_link
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet_association" {
