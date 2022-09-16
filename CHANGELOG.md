@@ -1,4 +1,4 @@
-# Unreleased
+# v6.0.0 - 2022-09-16
 
 Changed
   * AZ-844: `enforce_private_link_endpoint_network_policies` will be removed in favour of the property `private_endpoint_network_policies_enabled`
