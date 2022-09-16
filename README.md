@@ -140,8 +140,8 @@ No modules.
 | name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
 | network\_security\_group\_name | The Network Security Group name to associate with the subnets. | `string` | `null` | no |
 | network\_security\_group\_rg | The Network Security Group RG to associate with the subnet. Default is the same RG than the subnet. | `string` | `null` | no |
-| private\_link\_endpoint\_enabled | Enable or Disable network policies for the private endpoint on the subnet. | `bool` | `false` | no |
-| private\_link\_service\_enabled | Enable or Disable network policies for the private link service on the subnet. | `bool` | `false` | no |
+| private\_link\_endpoint\_enabled | Enable or Disable network policies for the private endpoint on the subnet. | `bool` | `null` | no |
+| private\_link\_service\_enabled | Enable or Disable network policies for the private link service on the subnet. | `bool` | `null` | no |
 | resource\_group\_name | Resource group name | `string` | n/a | yes |
 | route\_table\_name | The Route Table name to associate with the subnet. | `string` | `null` | no |
 | route\_table\_rg | The Route Table RG to associate with the subnet. Default is the same RG than the subnet. | `string` | `null` | no |
