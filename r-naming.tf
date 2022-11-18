@@ -1,4 +1,4 @@
-resource "azurecaf_name" "subnet" {
+data "azurecaf_name" "subnet" {
   name          = var.stack
   resource_type = "azurerm_subnet"
   prefixes      = var.name_prefix == "" ? null : [local.name_prefix]
