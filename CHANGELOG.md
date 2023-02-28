@@ -49,7 +49,7 @@ Changed
 
 Added
   * AZ-332: Allow to configure subnet delegation
-  
+
 # v3.0.0 - 2020-07-09
 
 Breaking
