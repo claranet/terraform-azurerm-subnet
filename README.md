@@ -169,7 +169,7 @@ No modules.
 | subnet\_cidrs\_map | Map with names and CIDRs of the created subnets |
 | subnet\_id | Id of the created subnet |
 | subnet\_ips | The collection of IPs within this subnet |
-| subnet\_names | Names of the created subnet |
+| subnet\_name | Name of the created subnet |
 <!-- END_TF_DOCS -->
 ## Related documentation
 

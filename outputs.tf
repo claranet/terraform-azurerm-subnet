@@ -15,8 +15,8 @@ output "subnet_cidrs_map" {
   }
 }
 
-output "subnet_names" {
-  description = "Names of the created subnet"
+output "subnet_name" {
+  description = "Name of the created subnet"
   value       = azurerm_subnet.subnet.name
 }
 
