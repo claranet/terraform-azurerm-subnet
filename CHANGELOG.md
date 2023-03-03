@@ -1,3 +1,8 @@
+# v6.2.0 - 2023-03-03
+
+Changed
+  * [GH-4](https://github.com/claranet/terraform-azurerm-subnet/pull/4): Use singular for output name `subnet_name`
+
 # v6.1.0 - 2022-11-25
 
 Changed
