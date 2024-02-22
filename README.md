@@ -165,11 +165,13 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| subnet\_cidr\_list | CIDR list of the created subnets |
-| subnet\_cidrs\_map | Map with names and CIDRs of the created subnets |
-| subnet\_id | Id of the created subnet |
-| subnet\_ips | The collection of IPs within this subnet |
-| subnet\_name | Name of the created subnet |
+| subnet\_cidr\_list | CIDR list of the created subnets. |
+| subnet\_cidrs\_map | Map with names and CIDRs of the created subnets. |
+| subnet\_id | ID of the created subnet. |
+| subnet\_ips | The collection of IPs within this subnet. |
+| subnet\_name | Name of the created subnet. |
+| subnet\_nsg\_association | Subnet network security group association ID. |
+| subnet\_rt\_association | Subnet route table association ID. |
 <!-- END_TF_DOCS -->
 ## Related documentation
 
