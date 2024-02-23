@@ -170,8 +170,8 @@ No modules.
 | subnet\_id | ID of the created subnet. |
 | subnet\_ips | The collection of IPs within this subnet. |
 | subnet\_name | Name of the created subnet. |
-| subnet\_nsg\_association | Subnet network security group association ID. |
-| subnet\_rt\_association | Subnet route table association ID. |
+| subnet\_nsg\_association\_id | Subnet network security group association ID. |
+| subnet\_rt\_association\_id | Subnet route table association ID. |
 <!-- END_TF_DOCS -->
 ## Related documentation
 
