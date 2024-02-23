@@ -1,4 +1,4 @@
-# Unreleased
+# v6.3.0 - 2024-02-23
 
 Added
   * [GH-5](https://github.com/claranet/terraform-azurerm-subnet/issues/5): Output `nsg_association` and `route_table_association` IDs
