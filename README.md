@@ -157,7 +157,7 @@ No modules.
 | service\_endpoints | The list of Service endpoints to associate with the subnet. | `list(string)` | `[]` | no |
 | stack | Project stack name | `string` | n/a | yes |
 | subnet\_cidr\_list | The address prefix list to use for the subnet. | `list(string)` | n/a | yes |
-| subnet\_delegation | Subnet delegations configuration. | <pre>map(list(object({<br>    name    = string,<br>    actions = list(string)<br>  })))</pre> | `{}` | no |
+| subnet\_delegation | Subnet delegations configuration. | <pre>map(list(object({<br>    name    = string<br>    actions = list(string)<br>  })))</pre> | `{}` | no |
 | use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_subnet_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
 | virtual\_network\_name | Virtual network name | `string` | n/a | yes |
 

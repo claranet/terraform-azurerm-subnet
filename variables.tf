@@ -84,7 +84,7 @@ variable "private_link_service_enabled" {
 variable "subnet_delegation" {
   description = "Subnet delegations configuration."
   type = map(list(object({
-    name    = string,
+    name    = string
     actions = list(string)
   })))
   default  = {}
