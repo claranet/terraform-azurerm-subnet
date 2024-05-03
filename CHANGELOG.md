@@ -1,3 +1,30 @@
+## 6.3.1 (2024-05-03)
+
+
+### Code Refactoring
+
+* **AZ-1403:** type `subnet_delegation` with object instead of any ac50fd4
+
+
+### Continuous Integration
+
+* **AZ-1391:** enable semantic-release [skip ci] 45cfb94
+* **AZ-1391:** update semantic-release config [skip ci] 744bdae
+
+
+### Miscellaneous Chores
+
+* **AZ-1403:** bump TF to version `1.3` minimum [BREAKING] a23261f
+* **deps:** add renovate.json 885d348
+* **deps:** enable automerge on renovate 9252795
+* **deps:** update dependency opentofu to v1.7.0 915acb6
+* **deps:** update dependency tflint to v0.51.0 137c278
+* **deps:** update dependency trivy to v0.50.2 e570b88
+* **deps:** update dependency trivy to v0.50.4 3556b18
+* **deps:** update renovate.json af8e83a
+* **pre-commit:** update commitlint hook 9bcb060
+* **release:** remove legacy `VERSION` file 668ca19
+
 # v6.3.0 - 2024-02-23
 
 Added
