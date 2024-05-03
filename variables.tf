@@ -82,15 +82,11 @@ variable "private_link_service_enabled" {
 }
 
 variable "subnet_delegation" {
-  description = <<EOD
-Configuration delegations on subnet
-object({
-  name = object({
-    name = string,
+  description = "Subnet delegations configuration."
+  type = map(list(object({
+    name    = string
     actions = list(string)
-  })
-})
-EOD
-  type        = map(list(any))
-  default     = {}
+  })))
+  default  = {}
+  nullable = false
 }
