@@ -142,6 +142,7 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | client\_name | Client name/account used in naming | `string` | n/a | yes |
 | custom\_subnet\_name | Optional custom subnet name | `string` | `null` | no |
+| default\_outbound\_access\_enabled | Enable or Disable default\_outbound\_access. See https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access | `bool` | `false` | no |
 | environment | Project environment | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
