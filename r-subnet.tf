@@ -23,6 +23,8 @@ resource "azurerm_subnet" "subnet" {
 
   private_endpoint_network_policies_enabled     = var.private_link_endpoint_enabled
   private_link_service_network_policies_enabled = var.private_link_service_enabled
+
+  default_outbound_access_enabled = var.default_outbound_access_enabled
 }
 
 resource "azurerm_subnet_network_security_group_association" "subnet_association" {
