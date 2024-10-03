@@ -1,3 +1,14 @@
+## 7.2.0 (2024-10-03)
+
+### Features
+
+* use Claranet "azurecaf" provider b375386
+
+### Documentation
+
+* update README badge to use OpenTofu registry c745413
+* update README with `terraform-docs` v0.19.0 29b1b94
+
 ## 7.1.0 (2024-09-20)
 
 ### Features
