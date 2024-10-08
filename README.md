@@ -123,6 +123,7 @@ No modules.
 | name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
 | network\_security\_group\_name | The Network Security Group name to associate with the subnets. | `string` | `null` | no |
 | network\_security\_group\_rg | The Network Security Group RG to associate with the subnet. Default is the same RG than the subnet. | `string` | `null` | no |
+| private\_endpoint\_network\_policies | Enable or Disable network policies for the private endpoint on the subnet. Possible values are `Disabled`, `Enabled`, `NetworkSecurityGroupEnabled` and `RouteTableEnabled`. | `string` | `null` | no |
 | private\_link\_endpoint\_enabled | Enable or disable network policies for the Private Endpoint on the subnet. | `bool` | `null` | no |
 | private\_link\_service\_enabled | Enable or disable network policies for the Private Link Service on the subnet. | `bool` | `null` | no |
 | resource\_group\_name | Resource group name. | `string` | n/a | yes |

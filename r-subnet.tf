@@ -1,5 +1,5 @@
 moved {
-  from = azurerm_subnet.main
+  from = azurerm_subnet.subnet
   to   = azurerm_subnet.main
 }
 
@@ -26,7 +26,7 @@ resource "azurerm_subnet" "main" {
     }
   }
 
-  private_endpoint_network_policies_enabled     = var.private_link_endpoint_enabled
+  private_endpoint_network_policies             = coalesce(var.private_endpoint_network_policies, var.private_link_endpoint_enabled ? "Enabled" : "Disabled")
   private_link_service_network_policies_enabled = var.private_link_service_enabled
 
   default_outbound_access_enabled = var.default_outbound_access_enabled
