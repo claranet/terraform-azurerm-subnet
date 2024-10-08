@@ -1,4 +1,9 @@
-resource "azurerm_subnet" "subnet" {
+moved {
+  from = azurerm_subnet.main
+  to   = azurerm_subnet.main
+}
+
+resource "azurerm_subnet" "main" {
   name                 = local.subnet_name
   resource_group_name  = var.resource_group_name
   virtual_network_name = var.virtual_network_name
@@ -30,14 +35,14 @@ resource "azurerm_subnet" "subnet" {
 resource "azurerm_subnet_network_security_group_association" "subnet_association" {
   count = var.network_security_group_name == null ? 0 : 1
 
-  subnet_id                 = azurerm_subnet.subnet.id
+  subnet_id                 = azurerm_subnet.main.id
   network_security_group_id = local.network_security_group_id
 }
 
 resource "azurerm_subnet_route_table_association" "route_table_association" {
   count = var.route_table_name == null ? 0 : 1
 
-  subnet_id      = azurerm_subnet.subnet.id
+  subnet_id      = azurerm_subnet.main.id
   route_table_id = local.route_table_id
 }
 
