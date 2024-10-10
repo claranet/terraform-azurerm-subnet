@@ -34,8 +34,8 @@ module "subnet" {
   resource_group_name = module.rg.name
 
   virtual_network_name = module.vnet.name
-  subnet_cidr_list     = ["10.0.1.0/26"]
-  subnet_delegation = {
+  cidrs                = ["10.0.1.0/26"]
+  delegations = {
     app-service-plan = [
       {
         name    = "Microsoft.Web/serverFarms"

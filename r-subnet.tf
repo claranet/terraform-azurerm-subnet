@@ -4,16 +4,16 @@ moved {
 }
 
 resource "azurerm_subnet" "main" {
-  name                 = local.subnet_name
+  name                 = local.name
   resource_group_name  = var.resource_group_name
   virtual_network_name = var.virtual_network_name
-  address_prefixes     = var.subnet_cidr_list
+  address_prefixes     = var.cidrs
 
   service_endpoints           = var.service_endpoints
   service_endpoint_policy_ids = var.service_endpoint_policy_ids
 
   dynamic "delegation" {
-    for_each = var.subnet_delegation
+    for_each = var.delegations
     content {
       name = delegation.key
       dynamic "service_delegation" {
@@ -32,19 +32,29 @@ resource "azurerm_subnet" "main" {
   default_outbound_access_enabled = var.default_outbound_access_enabled
 }
 
-resource "azurerm_subnet_network_security_group_association" "subnet_association" {
+resource "azurerm_subnet_network_security_group_association" "main" {
   count = var.network_security_group_name == null ? 0 : 1
 
   subnet_id                 = azurerm_subnet.main.id
   network_security_group_id = local.network_security_group_id
 }
 
-resource "azurerm_subnet_route_table_association" "route_table_association" {
+moved {
+  from = azurerm_subnet_network_security_group_association.subnet_association
+  to   = azurerm_subnet_network_security_group_association.main
+}
+
+resource "azurerm_subnet_route_table_association" "main" {
   count = var.route_table_name == null ? 0 : 1
 
   subnet_id      = azurerm_subnet.main.id
   route_table_id = local.route_table_id
 }
 
-data "azurerm_subscription" "current" {
+moved {
+  from = azurerm_subnet_route_table_association.route_table_association
+  to   = azurerm_subnet_route_table_association.main
+}
+
+data "azurerm_subscription" "main" {
 }

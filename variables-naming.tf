@@ -12,7 +12,7 @@ variable "name_suffix" {
 }
 
 # Custom naming override
-variable "custom_subnet_name" {
+variable "custom_name" {
   description = "Optional custom subnet name."
   type        = string
   default     = null

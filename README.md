@@ -71,8 +71,8 @@ module "subnet" {
   resource_group_name = module.rg.name
 
   virtual_network_name = module.vnet.name
-  subnet_cidr_list     = ["10.0.1.0/26"]
-  subnet_delegation = {
+  cidrs                = ["10.0.1.0/26"]
+  delegations = {
     app-service-plan = [
       {
         name    = "Microsoft.Web/serverFarms"
@@ -105,18 +105,20 @@ No modules.
 | Name | Type |
 |------|------|
 | [azurerm_subnet.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet) | resource |
-| [azurerm_subnet_network_security_group_association.subnet_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_network_security_group_association) | resource |
-| [azurerm_subnet_route_table_association.route_table_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_route_table_association) | resource |
+| [azurerm_subnet_network_security_group_association.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_network_security_group_association) | resource |
+| [azurerm_subnet_route_table_association.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_route_table_association) | resource |
 | [azurecaf_name.subnet](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
-| [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
+| [azurerm_subscription.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| cidrs | The address prefix list to use for the subnet. | `list(string)` | n/a | yes |
 | client\_name | Client name/account used in naming. | `string` | n/a | yes |
-| custom\_subnet\_name | Optional custom subnet name. | `string` | `null` | no |
-| default\_outbound\_access\_enabled | Enable or Disable default\_outbound\_access. See https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access | `bool` | `false` | no |
+| custom\_name | Optional custom subnet name. | `string` | `null` | no |
+| default\_outbound\_access\_enabled | Enable or disable `default_outbound_access`. See [documentation](https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access). | `bool` | `false` | no |
+| delegations | Subnet delegations configuration. | <pre>map(list(object({<br/>    name    = string<br/>    actions = list(string)<br/>  })))</pre> | `{}` | no |
 | environment | Project environment. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
 | name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
@@ -132,21 +134,21 @@ No modules.
 | service\_endpoint\_policy\_ids | The list of IDs of Service Endpoint Policies to associate with the subnet. | `list(string)` | `null` | no |
 | service\_endpoints | The list of Service endpoints to associate with the subnet. | `list(string)` | `[]` | no |
 | stack | Project stack name. | `string` | n/a | yes |
-| subnet\_cidr\_list | The address prefix list to use for the subnet. | `list(string)` | n/a | yes |
-| subnet\_delegation | Subnet delegations configuration. | <pre>map(list(object({<br/>    name    = string<br/>    actions = list(string)<br/>  })))</pre> | `{}` | no |
 | virtual\_network\_name | Virtual network name. | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| cidrs\_list | CIDR list of the created subnets. |
+| cidrs | CIDR list of the created subnets. |
 | cidrs\_map | Map with names and CIDRs of the created subnets. |
 | id | ID of the created subnet. |
 | ips | The collection of IPs within this subnet. |
 | name | Name of the created subnet. |
+| nsg\_association | Subnet network security group association resource object. |
 | nsg\_association\_id | Subnet network security group association ID. |
 | resource | Subnet resource object. |
+| rt\_association | Subnet route table association resource object. |
 | rt\_association\_id | Subnet route table association ID. |
 <!-- END_TF_DOCS -->
 ## Related documentation

@@ -3,7 +3,7 @@ variable "virtual_network_name" {
   type        = string
 }
 
-variable "subnet_cidr_list" {
+variable "cidrs" {
   description = "The address prefix list to use for the subnet."
   type        = list(string)
 }
@@ -62,7 +62,7 @@ variable "private_link_service_enabled" {
   default     = null
 }
 
-variable "subnet_delegation" {
+variable "delegations" {
   description = "Subnet delegations configuration."
   type = map(list(object({
     name    = string
@@ -73,7 +73,7 @@ variable "subnet_delegation" {
 }
 
 variable "default_outbound_access_enabled" {
-  description = "Enable or Disable default_outbound_access. See https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access"
+  description = "Enable or disable `default_outbound_access`. See [documentation](https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access)."
   type        = bool
   default     = false
 }

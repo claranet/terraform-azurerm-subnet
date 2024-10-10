@@ -8,7 +8,7 @@ output "id" {
   value       = azurerm_subnet.main.id
 }
 
-output "cidrs_list" {
+output "cidrs" {
   description = "CIDR list of the created subnets."
   value       = azurerm_subnet.main.address_prefixes
 }
@@ -27,15 +27,26 @@ output "name" {
 
 output "ips" {
   description = "The collection of IPs within this subnet."
-  value       = var.subnet_cidr_list[*]
+  value       = var.cidrs[*]
+}
+
+output "nsg_association" {
+  description = "Subnet network security group association resource object."
+  value       = one(azurerm_subnet_network_security_group_association.main[*])
 }
 
 output "nsg_association_id" {
   description = "Subnet network security group association ID."
-  value       = one(azurerm_subnet_network_security_group_association.subnet_association[*].id)
+  value       = one(azurerm_subnet_network_security_group_association.main[*].id)
+}
+
+output "rt_association" {
+  description = "Subnet route table association resource object."
+  value       = one(azurerm_subnet_route_table_association.main[*])
+
 }
 
 output "rt_association_id" {
   description = "Subnet route table association ID."
-  value       = one(azurerm_subnet_route_table_association.route_table_association[*].id)
+  value       = one(azurerm_subnet_route_table_association.main[*].id)
 }
