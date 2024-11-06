@@ -43,7 +43,6 @@ output "nsg_association_id" {
 output "rt_association" {
   description = "Subnet route table association resource object."
   value       = one(azurerm_subnet_route_table_association.main[*])
-
 }
 
 output "rt_association_id" {

@@ -10,17 +10,17 @@ module "route_table" {
   resource_group_name = module.rg.name
 }
 
-module "network_security_group" {
-  source  = "claranet/nsg/azurerm"
-  version = "x.x.x"
+# module "network_security_group" {
+#   source  = "claranet/nsg/azurerm"
+#   version = "x.x.x"
 
-  client_name         = var.client_name
-  environment         = var.environment
-  location            = module.azure_region.location
-  location_short      = module.azure_region.location_short
-  stack               = var.stack
-  resource_group_name = module.rg.name
-}
+#   client_name         = var.client_name
+#   environment         = var.environment
+#   location            = module.azure_region.location
+#   location_short      = module.azure_region.location_short
+#   stack               = var.stack
+#   resource_group_name = module.rg.name
+# }
 
 module "subnet" {
   source  = "claranet/subnet/azurerm"
@@ -46,7 +46,7 @@ module "subnet" {
 
   route_table_name = module.route_table.name
 
-  network_security_group_name = module.network_security_group.name
+  # network_security_group_name = module.network_security_group.name
 
   service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Web"]
 }

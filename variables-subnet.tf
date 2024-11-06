@@ -51,7 +51,7 @@ variable "private_link_endpoint_enabled" {
 }
 
 variable "private_endpoint_network_policies" {
-  description = "Enable or Disable network policies for the private endpoint on the subnet. Possible values are `Disabled`, `Enabled`, `NetworkSecurityGroupEnabled` and `RouteTableEnabled`."
+  description = "Enable or disable network policies for the private endpoint on the subnet. Possible values are `Disabled`, `Enabled`, `NetworkSecurityGroupEnabled` and `RouteTableEnabled`."
   type        = string
   default     = null
 }
