@@ -35,37 +35,7 @@ More details about variables set by the `terraform-wrapper` available in the [do
 [Hashicorp Terraform](https://github.com/hashicorp/terraform/). Instead, we recommend to use [OpenTofu](https://github.com/opentofu/opentofu/).
 
 ```hcl
-module "azure_region" {
-  source  = "claranet/regions/azurerm"
-  version = "x.x.x"
-
-  azure_region = var.azure_region
-}
-
-module "rg" {
-  source  = "claranet/rg/azurerm"
-  version = "x.x.x"
-
-  location    = module.azure_region.location
-  client_name = var.client_name
-  environment = var.environment
-  stack       = var.stack
-}
-module "azure_network_vnet" {
-  source  = "claranet/vnet/azurerm"
-  version = "x.x.x"
-
-  environment         = var.environment
-  location            = module.azure_region.location
-  location_short      = module.azure_region.location_short
-  client_name         = var.client_name
-  stack               = var.stack
-  resource_group_name = module.rg.resource_group_name
-
-  vnet_cidr = ["10.0.1.0/24"]
-}
-
-module "azure_network_route_table" {
+module "route_table" {
   source  = "claranet/route-table/azurerm"
   version = "x.x.x"
 
@@ -74,22 +44,22 @@ module "azure_network_route_table" {
   stack               = var.stack
   location            = module.azure_region.location
   location_short      = module.azure_region.location_short
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 }
 
-module "azure_network_security_group" {
-  source  = "claranet/nsg/azurerm"
-  version = "x.x.x"
+# module "network_security_group" {
+#   source  = "claranet/nsg/azurerm"
+#   version = "x.x.x"
 
-  client_name         = var.client_name
-  environment         = var.environment
-  location            = module.azure_region.location
-  location_short      = module.azure_region.location_short
-  stack               = var.stack
-  resource_group_name = module.rg.resource_group_name
-}
+#   client_name         = var.client_name
+#   environment         = var.environment
+#   location            = module.azure_region.location
+#   location_short      = module.azure_region.location_short
+#   stack               = var.stack
+#   resource_group_name = module.rg.name
+# }
 
-module "azure_network_subnet" {
+module "subnet" {
   source  = "claranet/subnet/azurerm"
   version = "x.x.x"
 
@@ -98,11 +68,11 @@ module "azure_network_subnet" {
   client_name    = var.client_name
   stack          = var.stack
 
-  resource_group_name = module.rg.resource_group_name
+  resource_group_name = module.rg.name
 
-  virtual_network_name = module.azure_network_vnet.virtual_network_name
-  subnet_cidr_list     = ["10.0.1.0/26"]
-  subnet_delegation = {
+  virtual_network_name = module.vnet.name
+  cidrs                = ["10.0.1.0/26"]
+  delegations = {
     app-service-plan = [
       {
         name    = "Microsoft.Web/serverFarms"
@@ -111,9 +81,9 @@ module "azure_network_subnet" {
     ]
   }
 
-  route_table_name = module.azure_network_route_table.route_table_name
+  route_table_name = module.route_table.name
 
-  network_security_group_name = module.azure_network_security_group.network_security_group_name
+  # network_security_group_name = module.network_security_group.name
 
   service_endpoints = ["Microsoft.Storage", "Microsoft.KeyVault", "Microsoft.ServiceBus", "Microsoft.Web"]
 }
@@ -123,8 +93,8 @@ module "azure_network_subnet" {
 
 | Name | Version |
 |------|---------|
-| azurecaf | ~> 1.2, >= 1.2.22 |
-| azurerm | ~> 3.107 |
+| azurecaf | ~> 1.2.28 |
+| azurerm | ~> 4.0 |
 
 ## Modules
 
@@ -134,49 +104,52 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [azurerm_subnet.subnet](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet) | resource |
-| [azurerm_subnet_network_security_group_association.subnet_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_network_security_group_association) | resource |
-| [azurerm_subnet_route_table_association.route_table_association](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_route_table_association) | resource |
+| [azurerm_subnet.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet) | resource |
+| [azurerm_subnet_network_security_group_association.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_network_security_group_association) | resource |
+| [azurerm_subnet_route_table_association.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet_route_table_association) | resource |
 | [azurecaf_name.subnet](https://registry.terraform.io/providers/claranet/azurecaf/latest/docs/data-sources/name) | data source |
-| [azurerm_subscription.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
+| [azurerm_subscription.main](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subscription) | data source |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| client\_name | Client name/account used in naming | `string` | n/a | yes |
-| custom\_subnet\_name | Optional custom subnet name | `string` | `null` | no |
-| default\_outbound\_access\_enabled | Enable or Disable default\_outbound\_access. See https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access | `bool` | `false` | no |
-| environment | Project environment | `string` | n/a | yes |
+| cidrs | The address prefix list to use for the subnet. | `list(string)` | n/a | yes |
+| client\_name | Client name/account used in naming. | `string` | n/a | yes |
+| custom\_name | Optional custom subnet name. | `string` | `null` | no |
+| default\_outbound\_access\_enabled | Enable or disable `default_outbound_access`. See [documentation](https://learn.microsoft.com/en-us/azure/virtual-network/ip-services/default-outbound-access). | `bool` | `false` | no |
+| delegations | Subnet delegations configuration. | <pre>map(list(object({<br/>    name    = string<br/>    actions = list(string)<br/>  })))</pre> | `{}` | no |
+| environment | Project environment. | `string` | n/a | yes |
 | location\_short | Short string for Azure location. | `string` | n/a | yes |
-| name\_prefix | Optional prefix for the generated name | `string` | `""` | no |
-| name\_suffix | Optional suffix for the generated name | `string` | `""` | no |
+| name\_prefix | Optional prefix for the generated name. | `string` | `""` | no |
+| name\_suffix | Optional suffix for the generated name. | `string` | `""` | no |
 | network\_security\_group\_name | The Network Security Group name to associate with the subnets. | `string` | `null` | no |
 | network\_security\_group\_rg | The Network Security Group RG to associate with the subnet. Default is the same RG than the subnet. | `string` | `null` | no |
+| private\_endpoint\_network\_policies | Enable or disable network policies for the private endpoint on the subnet. Possible values are `Disabled`, `Enabled`, `NetworkSecurityGroupEnabled` and `RouteTableEnabled`. | `string` | `null` | no |
 | private\_link\_endpoint\_enabled | Enable or disable network policies for the Private Endpoint on the subnet. | `bool` | `null` | no |
 | private\_link\_service\_enabled | Enable or disable network policies for the Private Link Service on the subnet. | `bool` | `null` | no |
-| resource\_group\_name | Resource group name | `string` | n/a | yes |
+| resource\_group\_name | Resource group name. | `string` | n/a | yes |
 | route\_table\_name | The Route Table name to associate with the subnet. | `string` | `null` | no |
 | route\_table\_rg | The Route Table RG to associate with the subnet. Default is the same RG than the subnet. | `string` | `null` | no |
 | service\_endpoint\_policy\_ids | The list of IDs of Service Endpoint Policies to associate with the subnet. | `list(string)` | `null` | no |
 | service\_endpoints | The list of Service endpoints to associate with the subnet. | `list(string)` | `[]` | no |
-| stack | Project stack name | `string` | n/a | yes |
-| subnet\_cidr\_list | The address prefix list to use for the subnet. | `list(string)` | n/a | yes |
-| subnet\_delegation | Subnet delegations configuration. | <pre>map(list(object({<br/>    name    = string<br/>    actions = list(string)<br/>  })))</pre> | `{}` | no |
-| use\_caf\_naming | Use the Azure CAF naming provider to generate default resource name. `custom_subnet_name` override this if set. Legacy default name is used if this is set to `false`. | `bool` | `true` | no |
-| virtual\_network\_name | Virtual network name | `string` | n/a | yes |
+| stack | Project stack name. | `string` | n/a | yes |
+| virtual\_network\_name | Virtual network name. | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| subnet\_cidr\_list | CIDR list of the created subnets. |
-| subnet\_cidrs\_map | Map with names and CIDRs of the created subnets. |
-| subnet\_id | ID of the created subnet. |
-| subnet\_ips | The collection of IPs within this subnet. |
-| subnet\_name | Name of the created subnet. |
-| subnet\_nsg\_association\_id | Subnet network security group association ID. |
-| subnet\_rt\_association\_id | Subnet route table association ID. |
+| cidrs | CIDR list of the created subnets. |
+| cidrs\_map | Map with names and CIDRs of the created subnets. |
+| id | ID of the created subnet. |
+| ips | The collection of IPs within this subnet. |
+| name | Name of the created subnet. |
+| nsg\_association | Subnet network security group association resource object. |
+| nsg\_association\_id | Subnet network security group association ID. |
+| resource | Subnet resource object. |
+| rt\_association | Subnet route table association resource object. |
+| rt\_association\_id | Subnet route table association ID. |
 <!-- END_TF_DOCS -->
 ## Related documentation
 
