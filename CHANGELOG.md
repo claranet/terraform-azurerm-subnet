@@ -1,3 +1,14 @@
+## 8.0.1 (2024-11-20)
+
+### Bug Fixes
+
+* **AZ-1481:** fix `private_endpoint_network_policies` parameter bd27301
+
+### Miscellaneous Chores
+
+* **deps:** update dependency tflint to v0.54.0 1c34a85
+* **deps:** update dependency trivy to v0.57.1 61bb607
+
 ## 8.0.0 (2024-11-08)
 
 ### ⚠ BREAKING CHANGES
