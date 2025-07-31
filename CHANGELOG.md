@@ -1,3 +1,49 @@
+## 8.1.0 (2025-07-31)
+
+### Features
+
+* **AZ-1598:** Add NAT gateway support for outbound connections e90ea6c
+
+### Miscellaneous Chores
+
+* **⚙️:** ✏️ update template identifier for MR review 4de4811
+* 🗑️ remove old commitlint configuration files 0b2cbfe
+* **deps:** update dependency opentofu to v1.10.0 62b9daf
+* **deps:** update dependency opentofu to v1.10.1 4d2d841
+* **deps:** update dependency opentofu to v1.10.3 8455f8e
+* **deps:** update dependency opentofu to v1.8.6 3cb93dd
+* **deps:** update dependency opentofu to v1.8.8 4a83cb5
+* **deps:** update dependency opentofu to v1.9.0 fad6b8d
+* **deps:** update dependency opentofu to v1.9.1 383e91b
+* **deps:** update dependency pre-commit to v4.1.0 0eb0179
+* **deps:** update dependency pre-commit to v4.2.0 b373624
+* **deps:** update dependency terraform-docs to v0.20.0 df7d404
+* **deps:** update dependency tflint to v0.55.0 c4c9408
+* **deps:** update dependency tflint to v0.55.1 2f3426b
+* **deps:** update dependency tflint to v0.57.0 67f127e
+* **deps:** update dependency tflint to v0.58.0 982b767
+* **deps:** update dependency tflint to v0.58.1 005bf22
+* **deps:** update dependency trivy to v0.58.1 284f81c
+* **deps:** update dependency trivy to v0.58.2 5e201e8
+* **deps:** update dependency trivy to v0.59.0 41ae7f3
+* **deps:** update dependency trivy to v0.59.1 66bfb52
+* **deps:** update dependency trivy to v0.60.0 5c9b941
+* **deps:** update dependency trivy to v0.61.1 ef1ae64
+* **deps:** update dependency trivy to v0.62.0 7e30a13
+* **deps:** update dependency trivy to v0.62.1 f04ee0c
+* **deps:** update dependency trivy to v0.63.0 177f480
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.19.0 a987299
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.20.0 e81c106
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.21.0 1c1a4fd
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.22.0 026e0e2
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.0 e9976dd
+* **deps:** update pre-commit hook tofuutils/pre-commit-opentofu to v2.2.1 b7cfa2e
+* **deps:** update tools 5a45dce
+* **deps:** update tools b569418
+* **deps:** update tools c7d8d9c
+* update Github templates c9db7fe
+* update tflint config for v0.55.0 67b1e41
+
 ## 8.0.1 (2024-11-20)
 
 ### Bug Fixes
