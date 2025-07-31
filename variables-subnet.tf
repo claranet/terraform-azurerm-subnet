@@ -77,3 +77,12 @@ variable "default_outbound_access_enabled" {
   type        = bool
   default     = false
 }
+
+variable "nat_gateway" {
+  description = "ID of the NAT gateway to associate to the subnet."
+  type = object({
+    id = string
+  })
+  nullable = true
+  default  = null
+}
