@@ -1,6 +1,7 @@
 output "resource" {
   description = "Subnet resource object."
   value       = azurerm_subnet.main
+  sensitive   = true
 }
 
 output "id" {
