@@ -44,9 +44,9 @@ url = "https://github.com/j178/prek/releases/download/v0.3.9/prek-x86_64-pc-wind
 provenance = "github-attestations"
 
 [[tools.terraform-docs]]
-version = "0.22.0"
+version = "0.24.0"
 backend = "asdf:terraform-docs"
 
 [[tools.tflint]]
-version = "0.62.0"
+version = "0.64.0"
 backend = "asdf:tflint"
