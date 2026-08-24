@@ -9,7 +9,13 @@ resource "azurerm_subnet" "main" {
   virtual_network_name = var.virtual_network_name
   address_prefixes     = var.cidrs
 
-  service_endpoints           = var.service_endpoints
+  dynamic "service_endpoint" {
+    for_each = var.service_endpoints
+    content {
+      service = service_endpoint.value
+    }
+  }
+
   service_endpoint_policy_ids = var.service_endpoint_policy_ids
 
   dynamic "delegation" {
