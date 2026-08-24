@@ -1,3 +1,30 @@
+## 9.0.0 (2026-08-24)
+
+### ⚠ BREAKING CHANGES
+
+* **SREAA-368:** consumers must upgrade to OpenTofu >= 1.12 and pin
+the azurerm provider to ~> 5.0. The azurerm_subnet resource now
+configures service endpoints via the service_endpoint block instead of
+the removed service_endpoints list argument; the module's own
+var.service_endpoints input is unchanged.
+
+fixes https://github.com/claranet/terraform-azurerm-subnet/issues/6
+
+### Features
+
+* **SREAA-368:** upgrade module to v9 (OpenTofu >= 1.12, AzureRM ~> 5.0) 5bb1ef3
+
+### Bug Fixes
+
+* **SREAA-368:** refresh the v9 upgrade against the current v9 baseline a7bd658
+
+### Miscellaneous Chores
+
+* **deps:** update dependency opentofu to v1.12.5 ae3c2c6
+* **deps:** update dependency tflint to v0.64.0 82bacf6
+* **SREAA-368:** synchronize committed.toml and AGENTS.md from the ci template 524c462
+* **v9:** 🐛 synchronize common files and docs edff1c2
+
 ## 8.1.5 (2026-07-20)
 
 ### Bug Fixes
